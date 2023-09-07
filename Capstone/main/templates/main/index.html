@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Book Club for Books Lovers {% endblock %}
+
+
+{% block content %}
+
+<div class="row pt-4">
+    <div class="col-12 col-md-6 order-2 order-md-1">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <h1>Welcome to our project</h1>
+            <p> This A website where job seekers, trainees, and employees can express their personal experiences with local Companies.
+                !</p>
+            <a href="{% url 'main:about_view' %}" class="btn btn-success rounded rounded-5">Learn More</a>
+        </div>
+
+    </div>
+</div>
+
+<hr />
+
+
+{% endblock %}
