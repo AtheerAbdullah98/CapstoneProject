@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} All companies  {% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+{% for company in companies %}
+    <div class="col-4 mt-4">
+        <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between">
+            <img src="{{ company.image.url }}" class="rounded-4 object-fit-cover border border-1 " />
+            <h3>{{ company.name }}</h3>
+            <div class="d-flex justify-content-between align-items-center">
+                <h6>{{ company.info }}</h6>             
+            </div>
+            <a href="{% url 'companies:company_detail_view' company.id %}" class="d-flex justify-content-between text-decoration-none">
+                <h5>more</h5>
+            </a>
+        </div>
+    </div>
+  
+
+{% endfor %}
+</div>
+
+{% endblock %}
