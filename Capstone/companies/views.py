@@ -34,7 +34,6 @@ def company_update_view(request:HttpRequest, company_id):
             company.field = request.POST["field"]
             company.info = request.POST["info"]
             company.description = request.POST["description"]
-            company.publish_date = request.POST["publish_date"]
             if "image" in request.FILES:
                 company.image = request.FILES["image"]
             company.save()
