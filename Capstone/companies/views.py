@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-
 from .models import Company
 
 # Create your views here.
 def add_company_view(request: HttpRequest):
     try:
         msg= None
-        # if not request.user.is_staff:
-        #     return redirect("")
+        #if not request.user.is_staff:  
+        #      return redirect("")
 
         if request.method == "POST":
             new_company = Company(name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"])
@@ -18,6 +17,16 @@ def add_company_view(request: HttpRequest):
         return render(request, 'companies/add_company.html')
     except: 
         return redirect("main:home_view")
+    
+ #posts from admin   
+def admin_approve_view(request, company_id):
+    if request.user.is_staff:
+        company = Company.objects.get(id=company_id)
+        company.approved = True
+        company.save()
+        return redirect('companies/service_request_success.html')
+    else:
+        return redirect("accounts:login_user_view")
     
 
 #updating company  
@@ -57,10 +66,10 @@ def company_delete_view(request: HttpRequest, company):
 
 def all_companies_view(request: HttpRequest):
 
-    companies = Company.objects.all()
+    #companies = Company.objects.all()
+    companies = Company.objects.filter(approved=True)
 
     return render(request, "companies/all_companies.html", {"companies" : companies})
-
 
 
 def company_detail_view(request: HttpRequest, company_id):
@@ -68,3 +77,5 @@ def company_detail_view(request: HttpRequest, company_id):
   company = Company.objects.get(id=company_id)
 
   return render(request, "companies/company_detail.html", {"company" : company})
+
+

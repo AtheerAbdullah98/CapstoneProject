@@ -9,6 +9,8 @@ class Company(models.Model):
     info= models.TextField()
     description = models.TextField()
     publish_date = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+
    
     def __str__(self):
         return f"{self.name}"

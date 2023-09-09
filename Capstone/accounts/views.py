@@ -68,3 +68,4 @@ def update_profile_page(request:HttpRequest, user_id):
         return redirect("accounts:profile_page", user_id=user_id)
         
     return render(request, "accounts/update_profile.html", {"profile" : profile})
+
