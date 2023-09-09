@@ -78,4 +78,12 @@ def company_detail_view(request: HttpRequest, company_id):
 
   return render(request, "companies/company_detail.html", {"company" : company})
 
+def companies_search_view(request: HttpRequest):
+
+    if "search" in request.GET:
+        companies = Company.objects.filter(name__contains=request.GET["search"])
+    else:
+        companies = Company.objects.all()
+
+    return render(request, 'companies/search_results.html', {"companies" : companies})
 
