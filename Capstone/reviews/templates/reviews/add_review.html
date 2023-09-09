@@ -12,11 +12,10 @@
             <form  action="{% url 'reviews:add_review_view' %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
                 {% csrf_token %} 
 
-
-                <label>experience: </label>
-                <select name="category" class="form-select">
-                    {% for value, position in Review.experience_choices %}
-                        <option value="{{value}}">{{position}}</option>
+                <label>Experience: </label>
+                <select name="experience" class="form-select">
+                    {% for value, title in Review.experience_choices %}
+                        <option value="{{value}}">{{title}}</option>
                     {% endfor %}
                 </select>
 
@@ -31,8 +30,8 @@
 
                 <label>Rating: </label>
                 <select name="rating" class="form-select">
-                    {% for value, position in Review.rating_choices %}
-                        <option value="{{value}}">{{position}}</option>
+                    {% for value, title in Review.rating_choices %}
+                        <option value="{{value}}">{{title}}</option>
                     {% endfor %}
                 </select>
 

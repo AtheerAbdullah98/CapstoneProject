@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>  Add new post  </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Tilt+Prism&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/styles/main.css" />
+
+
+    </head>
+
+
+
+
+    <body>
+
+        <nav class="navbar bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+              <a class="navbar-brand text-warning" href="#" ><img src="/static/images/logo.jpeg" class="bd-placeholder-img rounded-circle" width="50" height="50">  Blog</a> 
+              <button class="navbar-toggler text-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title text-warning" id="offcanvasNavbarLabel">My Blog</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
+                    <li class="nav-item">
+                      <a class="nav-link active text-warning" aria-current="page" href="/">Home</a>
+                      <a class="nav-link active text-warning" aria-current="page" href="/blog/all/">Posts</a>
+                      <a class="nav-link active text-warning" aria-current="page" href="/blog/add/">new post</a>
+                    </li>
+                  </ul>
+                  <form role="search" action="/blog/search/" method="get">
+                    <input name="search" class="form-control" type="search" placeholder="Search" aria-label="search" >
+                  </form>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+
+        
+  
+    <div class="row aa">
+
+        <div class="col" >
+            <h2>Adding post</h2>
+
+            <form  action="/blog/add/" method="post" class="d-flex flex-column gap-2">
+                <input type="hidden" name="csrfmiddlewaretoken" value="zs2n3KKn3jVUnzZBtXEhilf6ulu0LHfXaXeC8mhKlkBNqbwGN0RPn17EmTzF2qJR"> 
+                <label>Title: </label>
+                <input type="TextChoices" name="title" />
+
+                <label>Content: </label>
+                <textarea name="Content"></textarea> 
+          
+                <label>Category: </label>
+                <select name="category">
+                    
+                        <option value="food">food</option>
+                    
+                        <option value="health">health</option>
+                    
+                        <option value="care and beauty">care and beauty</option>
+                    
+                        <option value="fitness">fitness</option>
+                    
+                </select>
+
+                <label>Choose Image: </label>
+                <input type="file" name="image" class="form-control"/>
+
+                
+                <label>Publish Date:</label>
+                <input type="date" name="publish_date" />
+
+                <input type="submit" value="Add Post" class="btn btn-primary"/>
+
+            </form>
+
+        </div>
+
+    </div>
+ 
+
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+
+    </body>
+</html>
