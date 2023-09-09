@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
 from .models import Profile
+from companies.models import Company
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -68,3 +69,8 @@ def update_profile_page(request:HttpRequest, user_id):
         return redirect("accounts:profile_page", user_id=user_id)
         
     return render(request, "accounts/update_profile.html", {"profile" : profile})
+
+def added_company_list_view(request):
+    companies = Company.objects.all()
+
+    return render(request, 'accounts/my_added_company.html', {'companies': companies})
