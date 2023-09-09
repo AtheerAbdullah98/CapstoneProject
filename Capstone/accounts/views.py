@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
+from .models import Profile
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -38,3 +39,32 @@ def logout_user_view(request: HttpRequest):
     logout(request)
 
     return redirect("accounts:login_user_view")
+
+def profile_page(request:HttpRequest, user_id):
+
+    try:
+        profile = Profile.objects.get(user__id=user_id)
+    except:
+        return render(request, "main/not_found.html")
+
+    return render(request, "accounts/profile.html", {"profile" : profile})
+
+def update_profile_page(request:HttpRequest, user_id):
+
+    try:
+        user = User.objects.get(id=user_id)
+        profile, is_created = Profile.objects.get_or_create(user=user)
+    except:
+        return render(request, "main/not_found.html")
+    
+    if request.method == "POST":
+        profile.about = request.POST["about"]
+        profile.twitter_link = request.POST["twitter_link"]
+        profile.birth_date = request.POST["birth_date"]
+        if "avatar" in request.FILES:
+            profile.avatar = request.FILES["avatar"]
+        profile.save()
+
+        return redirect("accounts:profile_page", user_id=user_id)
+        
+    return render(request, "accounts/update_profile.html", {"profile" : profile})

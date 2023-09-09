@@ -1,0 +1,40 @@
+{% extends 'main/base.html'%}
+
+
+{% block title %} {{profile.user.username}} profile {% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-start align-items-center gap-2">
+                <img src="{{profile.avatar.url}}" class="avatar-big img-thumbnail rounded-circle" />
+                <div class="d-flex flex-column gap-1">
+                    <h1 class="m-4 fw-bold">{{profile.user.username}} </h1>
+                    <h2 class="m-0">{{profile.user.first_name}} {{profile.user.last_name}}</h2>
+                    <h5 class="m-0">{{profile.user.email}}</h5>
+                </div>
+            </div>
+            
+
+            <div class="mt-2">
+                <p>{{profile.about}}</p>
+            </div>
+
+            <div class="mt-2">
+                <h3>Social media</h3>
+                <div class="d-flex align-items-center gap-2 social">
+                    <a href="{{profile.twitter_link}}" class="text-black" target="_blank"><i class="bi-twitter"></i></a>
+                </div>
+            </div>
+
+            <hr/>
+        </div>
+
+
+
+    </div>
+</div>
+
+{% endblock %}

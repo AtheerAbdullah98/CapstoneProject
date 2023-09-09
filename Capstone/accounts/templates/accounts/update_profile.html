@@ -1,0 +1,45 @@
+{% extends 'main/base.html'%}
+
+
+{% block title %} Update Profile {% endblock %}
+
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center">
+
+    <h2>Update {{profile.user.username}} profile</h2>
+
+    <form class="d-flex flex-column gap-3 w-50" action="{% url 'accounts:update_profile_page' profile.user.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-floating">
+            <textarea  class="form-control" id="floatingInput" placeholder="about" name="about">{{profile.about}}</textarea>
+            <label for="floatingInput">About</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="date" class="form-control" id="floatingInput" placeholder="Birth Date" name="birth_date" value="{{profile.birth_date.isoformat}}">
+            <label for="floatingInput">Birth Date</label>
+        </div>
+
+
+        <div class="form-floating">
+            <input type="url" class="form-control" id="floatingInput" placeholder="name@example.com" name="twitter_link" value="{{profile.twitter_link}}">
+            <label for="floatingInput">twitter link</label>
+        </div>
+
+
+        <div class="">
+          {% if profile.avatar %}
+            <img src="{{profile.avatar.url}}" class="avatar-big rounded-circle" />
+          {% endif %}
+          <label for="floatingAvatar">Avatar</label>
+          <input type="file" accept="image/png, image/jpg" class="form-control" id="floatingAvatar" placeholder="avatar" name="avatar">
+          
+        </div>
+    
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Update</button>
+      </form>
+</div>
+
+{% endblock %}
