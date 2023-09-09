@@ -10,6 +10,4 @@ urlpatterns = [
     path('profile/<user_id>/', views.profile_page, name="profile_page"),
     path('profile/update/<user_id>/', views.update_profile_page, name="update_profile_page"),
     path('my_added_company/<user_id>/', views.added_company_list_view, name="added_company_list_view"),
-
-
 ]
