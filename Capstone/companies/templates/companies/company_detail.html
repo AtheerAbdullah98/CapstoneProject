@@ -10,6 +10,11 @@
         <div>
             <a href="{% url 'companies:company_update_view' company.id %}" class="btn btn-warning">Update</a>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+            <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="approved" value=True class="btn"
+                    style="background-color: rgb(250, 240, 230); color:rgb(92, 84, 112) ;">Approve</button>
+            </form>
         </div>
       
     </div>
