@@ -34,6 +34,12 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'companies:all_companies_view'%}">all companies</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'reviews:add_review_view' %}">add review</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'reviews:all_reviews_view'%}">all reviews</a>
+                  </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                       {% if request.user.is_authenticated %}

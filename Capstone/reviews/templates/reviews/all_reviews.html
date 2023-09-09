@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} All reviews  {% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+    {% for review in reviews %}
+        <div class="col-4 mt-4">
+            <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between">
+
+                <div class="d-flex gap-1 align-items-center">
+                    <h6 class="p-0 m-0"> {{review.experience}}</h6>
+                    <span class="material-symbols-outlined">star</span>
+                </div>
+                <h3>{{ review.position }}</h3>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6>{{ review.description }}</h6>
+                    <div class="d-flex gap-1 align-items-center">
+                        <h6 class="p-0 m-0"> {{review.rating}}</h6>
+                        <span class="material-symbols-outlined">star</span>
+                    </div>
+                    
+                </div>
+        </div>
+    
+    {% endfor %}
+    </div>
+
+{% endblock %}
