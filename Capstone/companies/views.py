@@ -42,7 +42,7 @@ def company_update_view(request:HttpRequest, company_id):
     except:
         return render(request, "main/not_found.html")
 
-    return render(request, "companies/update_company.html")
+    return render(request, "companies/update_company.html", {"company": company})
 
 #deleting company from database
 def company_delete_view(request: HttpRequest, company):
@@ -56,7 +56,15 @@ def company_delete_view(request: HttpRequest, company):
     return redirect("companies:all_companies_view")
 
 def all_companies_view(request: HttpRequest):
-    pass
 
-def company_detail_view(request: HttpRequest):
-    pass
+    companies = Company.objects.all()
+
+    return render(request, "companies/all_companies.html", {"companies" : companies})
+
+
+
+def company_detail_view(request: HttpRequest, company_id):
+     
+  company = Company.objects.get(id=company_id)
+
+  return render(request, "companies/company_detail.html", {"company" : company})
