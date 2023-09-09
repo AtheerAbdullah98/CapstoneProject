@@ -70,7 +70,7 @@ def update_profile_page(request:HttpRequest, user_id):
         
     return render(request, "accounts/update_profile.html", {"profile" : profile})
 
-def added_company_list_view(request):
-    companies = Company.objects.all()
+def added_company_list_view(request,user_id ):
+    companies = Company.objects.filter(id=user_id)
 
     return render(request, 'accounts/my_added_company.html', {'companies': companies})
