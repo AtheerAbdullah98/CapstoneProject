@@ -1,28 +1,44 @@
 {% extends 'main/base.html' %}
 
 
-{% block title %} All companies  {% endblock %}
+{% block title %} Update companies  {% endblock %}
 
 {% block content %}
 
+<div class="row justify-content-center">
 
-<div class="row">
-{% for company in companies %}
-    <div class="col-4 mt-4">
-        <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between">
-            <img src="{{ company.image.url }}" class="rounded-4 object-fit-cover border border-1 " />
-            <h3>{{ company.name }}</h3>
-            <div class="d-flex justify-content-between align-items-center">
-                <h6>{{ company.info }}</h6>             
+    <div class="col-md-6">
+        <h2>Update companies</h2>
+
+        <form  action="{% url 'companies:company_update_view' company.id %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+            {% csrf_token %} 
+            <label>Name: </label>
+            <input type="text" name="name" value="{{ company.name }}" class="form-control"/>
+
+            <label>Field: </label>
+            <input type="text" name="field" value="{{ company.field }}" class="form-control"/>
+            
+            <label>Info: </label>
+            <textarea name="info" class="form-control">{{ company.info }}</textarea> 
+
+            <label>Description: </label>
+            <textarea name="description" class="form-control">{{ company.description }}</textarea> 
+
+            
+            <div class="d-flex gap-2 align-items-center">
+                <h5>Current Image:</h5>
+                <img src="{{ company.image.url }}"  class="rounded-4 object-fit-cover "width="50" height="50" />
             </div>
-            <a href="{% url 'companies:company_detail_view' company.id %}" class="d-flex justify-content-between text-decoration-none">
-                <h5>more</h5>
-            </a>
-        </div>
-    </div>
-  
+            <label>Choose Image: </label>
+            <input type="file" name="image" class="form-control"/>
 
-{% endfor %}
+            <input type="submit" value="update company" class="btn btn-primary"/>
+
+        </form>
+
+    </div>
+
 </div>
+
 
 {% endblock %}

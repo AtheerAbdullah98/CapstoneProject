@@ -6,10 +6,15 @@
 <div class="d-flex flex-column gap-2">
     <h1>{{  company.name }}</h1>
     <div class="d-flex justify-content-end">
-     
+
+        {% if request.user.is_staff %}
         <div>
             <a href="{% url 'companies:company_update_view' company.id %}" class="btn btn-warning">Update</a>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+        </div>
+        {% endif %}
+     
+        <div>
             <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" name="approved" value=True class="btn"
@@ -37,5 +42,24 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete company</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ? 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="{% url 'companies:company_delete_view' company.id %}"  class="btn btn-danger">Yes, Delete!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- End  Modal -->
 
 {% endblock %}

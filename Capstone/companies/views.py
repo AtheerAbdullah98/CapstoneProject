@@ -47,8 +47,8 @@ def admin_approve_view(request, company_id):
 #updating company  
 def company_update_view(request:HttpRequest, company_id):
     
-   # if not request.user.is_staff:
-    #    return redirect("accounts:login_user_view")
+    if not request.user.is_staff:
+      return redirect("accounts:login_user_view")
     
     try:
         company = Company.objects.get(id=company_id)
@@ -69,12 +69,12 @@ def company_update_view(request:HttpRequest, company_id):
     return render(request, "companies/update_company.html", {"company": company})
 
 #deleting company from database
-def company_delete_view(request: HttpRequest, company):
+def company_delete_view(request: HttpRequest, company_id):
 
-    #if not request.user.is_staff:
-        #return redirect("accounts:login_user_view")
+    if not request.user.is_staff:
+        return redirect("accounts:login_user_view")
     
-    company = Company.objects.get(id=company)
+    company = Company.objects.get(id=company_id)
     company.delete()
     
 
