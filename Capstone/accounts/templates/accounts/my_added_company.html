@@ -4,7 +4,13 @@
 {% block title %} {{profile.user.username}} profile {% endblock %}
 
 {% block content %}
-
+{% if "msg" in  request.GET %}
+<div class="alert alert-dismissible fade show"
+    style="background-color: rgb(92, 84, 112); color:  rgb(250, 240, 230);" role="alert">
+    <strong>{{request.GET.msg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
 {% for company in companies %}
     <div>
         <h2>{{ company.name }}</h2>

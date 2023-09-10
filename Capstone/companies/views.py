@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.http import HttpRequest, HttpResponse
+
+from django.contrib.auth.models import User
+
 from .models import Company,Review
+
 
 # Create your views here.
 def add_company_view(request: HttpRequest):
@@ -14,10 +18,15 @@ def add_company_view(request: HttpRequest):
                 new_company = Company(user=request.user,name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"],approved=True)
                 new_company.save()
                 msg='Company added'
+                url = resolve_url("companies:all_companies_view") + "?msg=" + msg
+                return redirect(url)
             else:
                 new_company = Company(user=request.user,name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"])
                 new_company.save()
-                msg='Company added'
+                msg='Company request added'
+                url = resolve_url("companies:all_companies_view") + "?msg=" + msg
+                return redirect(url)
+
         return render(request, 'companies/add_company.html')
     except: 
         return redirect("main:home_view")
@@ -25,25 +34,24 @@ def add_company_view(request: HttpRequest):
     
 def approve_company_view(request: HttpRequest):
     try:
-        msg= None
+        msg = None
         if not request.user.is_authenticated:  
              return redirect("main:home_view")
 
         companies = Company.objects.filter(approved=False)
-
-        return render(request, "companies/approved_company.html", {"companies" : companies})
+        return render(request, "companies/approved_company.html", {"companies" : companies })
     except: 
         return redirect("main:home_view")
 
  #posts from admin   
-def admin_approve_view(request, company_id):
-    if request.user.is_staff:
-        company = Company.objects.get(id=company_id)
-        company.approved = True
-        company.save()
-        return redirect('companies/service_request_success.html')
-    else:
-        return redirect("accounts:login_user_view")
+# def admin_approve_view(request, company_id):
+#     if request.user.is_staff:
+#         company = Company.objects.get(id=company_id)
+#         company.approved = True
+#         company.save()
+#         return redirect('companies/service_request_success.html')
+#     else:
+#         return redirect("accounts:login_user_view")
     
 
 #updating company  
