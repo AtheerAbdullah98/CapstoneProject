@@ -13,6 +13,8 @@ urlpatterns = [
     path("search/",views.companies_search_view, name="companies_search_view"),
     path("approve/",views.approve_company_view, name="approve_company_view"),
     path("reveiw/add/<company_id>/",views.add_Review_view,name="add_Review_view"),
+    path("reveiw/delete/<review_id>/",views.review_delete_view,name="review_delete_view"),
     path("reveiw/update/<reveiw_id>/", views.Review_update_view, name="Review_update_view"),
+
 
 ]

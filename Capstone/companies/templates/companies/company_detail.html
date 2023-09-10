@@ -61,6 +61,7 @@
       </div>
     </div>
   </div>
+
 <!-- End  Modal -->
 
 
@@ -72,13 +73,34 @@
     {% for review in reviews %}
       <div class="d-flex flex-column gap-1 border border-1 rounded p-4 mt-3">
         <h4>{{review.user.first_name}}</h4>
-        <h6>{{ reviews.publish_date }}</h6>
+        <h6>{{ review.publish_date }}</h6>
         <p>{{review.experience}}</p>
         <h3>{{ review.position }}</h3>
         <h6>{{ review.description }}</h6>
         <h6>{{review.rating}}</h6>
+        <h6>{{review.user.id}}</h6>
+        {% if request.user.id == review.user.id or request.user.is_staff %}
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteReviewModal">Delete</button>
+        <a href="{% url 'companies:Review_update_view' review.id %}" class="btn btn-warning">Update reviews {{review.id}}</a>
+        {% endif %}
       </div>
-      <a href="{% url 'companies:Review_update_view' review.id %}" class="btn btn-warning">Update reviews {{review.id}}</a>
+        <!-- for reviw -->
+        {% if request.user.id == review.user.id or request.user.is_staff %}
+  <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Review</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ? 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="{% url 'companies:review_delete_view' review.id %}"  class="btn btn-danger">Yes, Delete!</a>
+        </div>
+      </div>
     {% endfor %}
   </div>
 

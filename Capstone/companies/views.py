@@ -137,6 +137,20 @@ def add_Review_view(request: HttpRequest,company_id):
 
     return render(request, 'companies/add_reveiw.html', {"company":company,"review":Review })
 
+
+def review_delete_view(request: HttpRequest, review_id):
+    is_user = Review.objects.get(id=review_id)
+    if request.user.id != is_user.user.id and not request.user.is_staff:
+            # print(request.user.id == is_user.user.id)
+            return redirect("accounts:login_user_view")
+    
+    isreview = Review.objects.filter(user=request.user)
+    review = Review.objects.get(id=review_id)
+    review.delete()
+    
+
+    return redirect("companies:all_companies_view")
+
 def Review_update_view(request:HttpRequest, review_id):
     
     if not request.user.is_authenticated:
@@ -159,3 +173,4 @@ def Review_update_view(request:HttpRequest, review_id):
         return render(request, "main/not_found.html")
 
     return render(request, "companies/update_review.html",review.id)
+
