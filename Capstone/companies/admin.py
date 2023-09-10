@@ -1,13 +1,20 @@
 from django.contrib import admin
-from .models import Company
+from .models import Company,Review
 
 # Register your models here.
 
 
 class CompanyAdmin(admin.ModelAdmin):
 
-    list_display = ("name", "field", "info")
+    list_display = ("name", "field", "info","approved")
     list_filter = ("info",)
 
+
+class ReviewAdmin(admin.ModelAdmin):
+
+    list_display = ("user", "company", "rating")
+    list_filter = ("company","rating",)
+
+admin.site.register(Review, ReviewAdmin)
 admin.site.register(Company, CompanyAdmin)
 

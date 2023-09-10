@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Add Review {% endblock %}
+
+{% block content %}
+
+
+<div class="row mt-4">
+    <div class="col-6">
+
+        {% if request.user.is_authenticated %}
+
+        <form action="{% url 'companies:add_Review_view' company.id %}" method="post" >
+            {% csrf_token %}
+
+            <label>Experience: </label>
+            <select name="experience" class="form-select" >
+                {% for value, title in review.experience_choices %}
+                    <option value="{{value}}">{{title}}</option>
+                {% endfor %}
+            </select>
+            <label class="form-label" >Position:</label>
+            <input type="text" name="position" class="form-control">
+            <label class="form-label">description:</label>
+            <textarea class="form-control" name="description"></textarea>
+            <select name="rating" class="form-select" >
+                {% for value, title in review.rating_choices %}
+                    <option value="{{value}}">{{title}}</option>
+                {% endfor %}
+            </select>
+
+       
+            <button type="submit" class="btn btn-secondary" >Add Review</button>
+
+        </form>
+
+        {% else %}
+
+        <div class="p-4">
+            <h5>To comment, Please <a href="{% url 'account:login_user_view' %}"class="text-decoration-none"style="color: #3a7020;">sign in</a> , or <a href="{% url 'account:register_user_view' %}" class="text-decoration-none"style="color: #3a7020;">sign up</a> </h5>
+        </div>
+
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

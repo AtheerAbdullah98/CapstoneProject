@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Company
+from .models import Company,Review
 
 # Create your views here.
 def add_company_view(request: HttpRequest):
@@ -93,6 +93,8 @@ def all_companies_view(request: HttpRequest):
 def company_detail_view(request: HttpRequest, company_id):
      
   company = Company.objects.get(id=company_id)
+  reviews = Review.objects.filter(company=company)
+  #experience_choices= Review.experience
   if request.method == "POST":
         if not request.user.is_staff:
             return redirect("accounts:login_user_view")
@@ -100,8 +102,8 @@ def company_detail_view(request: HttpRequest, company_id):
         company.save()
         msg='company approved'
         return redirect("companies:all_companies_view")
-
-  return render(request, "companies/company_detail.html", {"company" : company})
+  
+  return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews, "Review" : Review})#,"experience_choices":experience_choices})
 
 def companies_search_view(request: HttpRequest):
 
@@ -112,3 +114,16 @@ def companies_search_view(request: HttpRequest):
 
     return render(request, 'companies/search_results.html', {"companies" : companies})
 
+#### Review views 
+def add_Review_view(request: HttpRequest,company_id):
+
+    company = Company.objects.get(id=company_id)
+
+    if request.method == "POST" and request.user.is_authenticated:
+        new_review = Review(user=request.user,company= company,experience=request.POST["experience"], position=request.POST["position"], description=request.POST["description"], rating= request.POST["rating"])
+        new_review.save()
+
+
+        return redirect("companies:company_detail_view",company.id)
+
+    return render(request, 'companies/add_reveiw.html', {"company":company,"review":Review })
