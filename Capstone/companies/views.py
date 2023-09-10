@@ -11,11 +11,11 @@ def add_company_view(request: HttpRequest):
 
         if request.method == "POST":
             if request.user.is_staff:  
-                new_company = Company(name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"],approved=True)
+                new_company = Company(user=request.user,name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"],approved=True)
                 new_company.save()
                 msg='Company added'
             else:
-                new_company = Company(name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"])
+                new_company = Company(user=request.user,name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"])
                 new_company.save()
                 msg='Company added'
         return render(request, 'companies/add_company.html')
