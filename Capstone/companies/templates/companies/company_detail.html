@@ -78,10 +78,9 @@
         <h3>{{ review.position }}</h3>
         <h6>{{ review.description }}</h6>
         <h6>{{review.rating}}</h6>
-        <h6>{{review.user.id}}</h6>
         {% if request.user.id == review.user.id or request.user.is_staff %}
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteReviewModal">Delete</button>
-        <a href="{% url 'companies:Review_update_view' review.id %}" class="btn btn-warning">Update reviews {{review.id}}</a>
+        <a href="{% url 'companies:review_update_view' review.id %}" class="btn btn-warning">Update reviews {{review.id}}</a>
         {% endif %}
       </div>
         <!-- for reviw -->
