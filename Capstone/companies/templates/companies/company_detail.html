@@ -81,6 +81,7 @@
         <h6>{{review.user.id}}</h6>
         {% if request.user.id == review.user.id or request.user.is_staff %}
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteReviewModal">Delete</button>
+        <a href="{% url 'companies:Review_update_view' review.id %}" class="btn btn-warning">Update reviews {{review.id}}</a>
         {% endif %}
       </div>
         <!-- for reviw -->
@@ -100,9 +101,6 @@
           <a href="{% url 'companies:review_delete_view' review.id %}"  class="btn btn-danger">Yes, Delete!</a>
         </div>
       </div>
-    </div>
-  </div>
-  {% endif %}
     {% endfor %}
   </div>
 
@@ -110,6 +108,8 @@
     <div class="col-md-6">
       {% if request.user.is_authenticated %}
         <a href="{% url 'companies:add_Review_view' company.id %}" class="btn btn-warning">Adding reviews {{company.id}}</a>
+        
+
       {% else %}
         <div class="p-4">
           <h5>To add review, Please <a href="{% url 'accounts:login_user_view' %}">sign in</a> , or <a href="{% url 'accounts:register_user_view' %}">sign up</a> </h5>
