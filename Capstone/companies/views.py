@@ -111,7 +111,7 @@ def company_detail_view(request: HttpRequest, company_id):
         msg='company approved'
         return redirect("companies:all_companies_view")
   
-  return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews, "Review" : Review})#,"experience_choices":experience_choices})
+  return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews, "Review" : Review})
 
 def companies_search_view(request: HttpRequest):
 
@@ -123,6 +123,7 @@ def companies_search_view(request: HttpRequest):
     return render(request, 'companies/search_results.html', {"companies" : companies})
 
 #### Review views 
+
 def add_Review_view(request: HttpRequest,company_id):
 
     company = Company.objects.get(id=company_id)
@@ -135,3 +136,26 @@ def add_Review_view(request: HttpRequest,company_id):
         return redirect("companies:company_detail_view",company.id)
 
     return render(request, 'companies/add_reveiw.html', {"company":company,"review":Review })
+
+def Review_update_view(request:HttpRequest, review_id):
+    
+    if not request.user.is_authenticated:
+      return redirect("accounts:login_user_view")
+    
+    try:
+        review = Review.objects.get(id=review_id)
+        companyId=Review.company.id
+
+        if request.method == "POST":
+            review.experience = request.POST["experience"]
+            review.position = request.POST["position"]
+            review.description = request.POST["description"]
+            review.rating = request.POST["rating"]
+        
+            review.save()
+
+            return redirect("companies:company_detail_view", company_id=companyId)
+    except:
+        return render(request, "main/not_found.html")
+
+    return render(request, "companies/update_review.html", {"review": review})
