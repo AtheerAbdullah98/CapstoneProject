@@ -78,6 +78,7 @@
         <h6>{{ review.description }}</h6>
         <h6>{{review.rating}}</h6>
       </div>
+      <a href="{% url 'companies:Review_update_view' review.id %}" class="btn btn-warning">Update reviews {{review.id}}</a>
     {% endfor %}
   </div>
 
@@ -85,7 +86,7 @@
     <div class="col-md-6">
       {% if request.user.is_authenticated %}
         <a href="{% url 'companies:add_Review_view' company.id %}" class="btn btn-warning">Adding reviews {{company.id}}</a>
-        <a href="{% url 'companies:Review_update_view' Review.id %}" class="btn btn-warning">Update reviews {{Review.id}}</a>
+        
 
       {% else %}
         <div class="p-4">

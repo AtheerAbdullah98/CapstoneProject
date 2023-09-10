@@ -158,4 +158,4 @@ def Review_update_view(request:HttpRequest, review_id):
     except:
         return render(request, "main/not_found.html")
 
-    return render(request, "companies/update_review.html", {"review": review})
+    return render(request, "companies/update_review.html",review.id)
