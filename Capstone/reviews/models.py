@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from companies.models import Company
 # Create your models here.
 
 class Review(models.Model):
@@ -9,6 +9,7 @@ class Review(models.Model):
     experience_choices = (("employee", "employee"), ("interview", "interview"), ("coop", "COOP"), )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    company=models.ForeignKey(Company,on_delete=models.CASCADE)
     experience = models.CharField(max_length=128, choices=experience_choices)
     position = models.CharField(max_length=256)
     description = models.TextField()

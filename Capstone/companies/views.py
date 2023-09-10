@@ -21,6 +21,8 @@ def add_company_view(request: HttpRequest):
         return render(request, 'companies/add_company.html')
     except: 
         return redirect("main:home_view")
+
+    
 def approve_company_view(request: HttpRequest):
     try:
         msg= None
