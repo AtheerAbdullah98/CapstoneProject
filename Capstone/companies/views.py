@@ -6,18 +6,33 @@ from .models import Company
 def add_company_view(request: HttpRequest):
     try:
         msg= None
-        #if not request.user.is_staff:  
-        #      return redirect("")
+        if not request.user.is_authenticated:  
+             return redirect("main:home_view")
 
         if request.method == "POST":
-            new_company = Company(name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"])
-            new_company.save()
-            msg='Company added'
-
+            if request.user.is_staff:  
+                new_company = Company(name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"],approved=True)
+                new_company.save()
+                msg='Company added'
+            else:
+                new_company = Company(name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"])
+                new_company.save()
+                msg='Company added'
         return render(request, 'companies/add_company.html')
     except: 
         return redirect("main:home_view")
-    
+def approve_company_view(request: HttpRequest):
+    try:
+        msg= None
+        if not request.user.is_authenticated:  
+             return redirect("main:home_view")
+
+        companies = Company.objects.filter(approved=False)
+
+        return render(request, "companies/approved_company.html", {"companies" : companies})
+    except: 
+        return redirect("main:home_view")
+
  #posts from admin   
 def admin_approve_view(request, company_id):
     if request.user.is_staff:
@@ -61,6 +76,7 @@ def company_delete_view(request: HttpRequest, company):
     
     company = Company.objects.get(id=company)
     company.delete()
+    
 
     return redirect("companies:all_companies_view")
 
@@ -68,13 +84,20 @@ def all_companies_view(request: HttpRequest):
 
     #companies = Company.objects.all()
     companies = Company.objects.filter(approved=True)
-
+    
     return render(request, "companies/all_companies.html", {"companies" : companies})
 
 
 def company_detail_view(request: HttpRequest, company_id):
      
   company = Company.objects.get(id=company_id)
+  if request.method == "POST":
+        if not request.user.is_staff:
+            return redirect("accounts:login_user_view")
+        company.approved = request.POST["approved"]
+        company.save()
+        msg='company approved'
+        return redirect("companies:all_companies_view")
 
   return render(request, "companies/company_detail.html", {"company" : company})
 

@@ -31,6 +31,11 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'companies:add_company_view' %}">add comany</a>
                   </li>
+                  {% if request.user.is_staff %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'companies:approve_company_view' %}">approved comany</a>
+                  </li>
+                  {% endif %}
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'companies:all_companies_view'%}">all companies</a>
                   </li>
