@@ -151,26 +151,27 @@ def review_delete_view(request: HttpRequest, review_id):
 
     return redirect("companies:all_companies_view")
 
-def Review_update_view(request:HttpRequest, review_id):
+def review_update_view(request:HttpRequest, review_id):
+    # try:
+        is_user = Review.objects.get(id=review_id)
+        if request.user.id != is_user.user.id and not request.user.is_staff:
+            return redirect("accounts:login_user_view")
     
-    if not request.user.is_authenticated:
-      return redirect("accounts:login_user_view")
     
-    try:
-        review = Review.objects.get(id=review_id)
-        companyId=Review.company.id
+        review = Review.objects.get(id=review_id,)
+        # companyId=Review.company.id
 
         if request.method == "POST":
             review.experience = request.POST["experience"]
             review.position = request.POST["position"]
             review.description = request.POST["description"]
             review.rating = request.POST["rating"]
-        
             review.save()
 
-            return redirect("companies:company_detail_view", company_id=companyId)
-    except:
-        return render(request, "main/not_found.html")
+            # return redirect("companies:company_detail_view", review_id=review.id)
+        return render(request,"companies/update_review.html",{"review":review })
+    # except:
+    #     return render(request, "main/not_found.html")
 
-    return render(request, "companies/update_review.html",review.id)
+    # return render(request, "companies/update_review.html",review.id)
 
