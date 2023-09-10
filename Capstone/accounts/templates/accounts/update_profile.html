@@ -30,7 +30,7 @@
 
         <div class="">
           {% if profile.avatar %}
-            <img src="{{profile.avatar.url}}" class="avatar-big rounded-circle" />
+            <img src="{{profile.avatar.url}}" class="avatar-big rounded-circle" style="height: 80px; width: 80px;" />
           {% endif %}
           <label for="floatingAvatar">Avatar</label>
           <input type="file" accept="image/png, image/jpg" class="form-control" id="floatingAvatar" placeholder="avatar" name="avatar">

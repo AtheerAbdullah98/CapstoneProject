@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add new Review {% endblock %}
+
+
+{% block content %}
+    <div class="row">
+
+        <div class="col">
+            <h2>Adding reviews</h2>
+
+            <form  action="{% url 'reviews:add_review_view' %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+                {% csrf_token %} 
+
+                <label>Experience: </label>
+                <select name="experience" class="form-select">
+                    {% for value, title in Review.experience_choices %}
+                        <option value="{{value}}">{{title}}</option>
+                    {% endfor %}
+                </select>
+
+                <label>position: </label>
+                <input type="text" name="position" class="form-control"/>
+                
+                <label>Description: </label>
+                <textarea name="description" class="form-control"></textarea> 
+
+                <label>Publish Date:</label>
+                <input type="date" name="publish_date" class="form-control"/>
+
+                <label>Rating: </label>
+                <select name="rating" class="form-select">
+                    {% for value, title in Review.rating_choices %}
+                        <option value="{{value}}">{{title}}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Choose file: </label>
+                <input type="file" name="file" class="form-control"/>
+
+                <input type="submit" value="Add Review" class="btn btn-primary"/>
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}
