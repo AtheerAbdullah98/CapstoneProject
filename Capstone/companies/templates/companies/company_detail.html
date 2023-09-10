@@ -85,6 +85,8 @@
     <div class="col-md-6">
       {% if request.user.is_authenticated %}
         <a href="{% url 'companies:add_Review_view' company.id %}" class="btn btn-warning">Adding reviews {{company.id}}</a>
+        <a href="{% url 'companies:Review_update_view' Review.id %}" class="btn btn-warning">Update reviews {{Review.id}}</a>
+
       {% else %}
         <div class="p-4">
           <h5>To add review, Please <a href="{% url 'accounts:login_user_view' %}">sign in</a> , or <a href="{% url 'accounts:register_user_view' %}">sign up</a> </h5>
