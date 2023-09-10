@@ -13,7 +13,7 @@
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
         </div>
         {% endif %}
-     
+        {% if company.approved == False %}
         <div>
             <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
                 {% csrf_token %}
@@ -21,6 +21,7 @@
                     style="background-color: rgb(250, 240, 230); color:rgb(92, 84, 112) ;">Approve</button>
             </form>
         </div>
+        {% endif %}
       
     </div>
 
