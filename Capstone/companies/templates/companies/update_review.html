@@ -31,6 +31,14 @@
                     <option value="{{value}}" {% if review.rating == value %} selected {% endif%}>{{title}}</option>
                 {% endfor %}
             </select>
+           <!-- <label class="form-label">Rate your experience:</label>
+            <div class="rate"style="color: #f9c448;">
+                <input type="radio" name="rating" id="rating5" value="5" /><label for="rating5" title="5" class="fa fa-star"> 5 </label>
+                <input type="radio" name="rating" id="rating4" value="4"/><label for="rating4" title="4" class="fa fa-star"> 4 </label>
+                <input type="radio" name="rating" id="rating3" value="3"/><label for="rating3" title="3" class="fa fa-star"> 3 </label>
+                <input type="radio" name="rating" id="rating2" value="2"/><label for="rating2" title="2" class="fa fa-star"> 2 </label>
+                <input type="radio" name="rating" id="rating1" value="1"/><label for="rating1" title="1" class="fa fa-star"> 1 </label>
+            </div>-->
 
 
             <input type="submit" value="update review" class="btn btn-primary"/>
