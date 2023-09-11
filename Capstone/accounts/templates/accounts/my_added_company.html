@@ -11,7 +11,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}
-{% for company in companies %}
+{% for company  in request.user.company_set.all %}
     <div>
         <h2>{{ company.name }}</h2>
         {% if company.approved %}
