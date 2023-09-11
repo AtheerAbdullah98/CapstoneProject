@@ -17,7 +17,7 @@
         </div>
 
         <div class="form-floating">
-            <input type="date" class="form-control" id="floatingInput" placeholder="Birth Date" name="birth_date" value="{{profile.birth_date.isoformat}}">
+            <input type="date" id="datePicker" class="form-control" id="floatingInput" placeholder="Birth Date" name="birth_date" value="{{profile.birth_date.isoformat}}" >
             <label for="floatingInput">Birth Date</label>
         </div>
 
@@ -40,6 +40,16 @@
 
         <button class="btn btn-primary w-100 py-2" type="submit">Update</button>
       </form>
+      <script>
+        // Get the date input element
+        var datePicker = document.getElementById("datePicker");
+
+        // Get today's date in the format yyyy-mm-dd
+        var today = new Date().toISOString().split("T")[0];
+
+        // Set the maximum date for the date input field
+        datePicker.setAttribute("max", today);
+    </script>
 </div>
 
 {% endblock %}
