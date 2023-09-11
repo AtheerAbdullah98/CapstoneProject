@@ -32,6 +32,7 @@ class Review(models.Model):
     rating = models.IntegerField(choices=rating_choices)
 
 
+
     def __str__(self):
         return f"{self.user.first_name} on {self.company.name}"
 

@@ -74,8 +74,8 @@
   <div class="d-flex flex-column gap-1 border border-1 rounded p-4 mt-3">
     <h4>{{review.user.first_name}}</h4>
     <h6><a
-        href="{% if is_favorite  %}{% url 'companies:remove_favorite_view' review.id  %}{% else %}{% url 'companies:add_favorite_view' review.id  %}{% endif %}"
-        class="{% if is_favorite %} text-danger {% endif%}"><span class="material-symbols-outlined">favorite</span></a>
+        href="{% if review.is_favored  %}{% url 'companies:remove_favorite_view' review.id  %}{% else %}{% url 'companies:add_favorite_view' review.id  %}{% endif %}"
+        class="{% if review.is_favored %} text-danger {% endif%}"><span class="material-symbols-outlined">favorite </span></a> {{ review.favorite_set.count }}
     </h6>
     <h6>{{ review.publish_date }}</h6>
     <p>{{review.experience}}</p>

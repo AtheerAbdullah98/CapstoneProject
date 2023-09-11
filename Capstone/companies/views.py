@@ -102,7 +102,11 @@ def company_detail_view(request: HttpRequest, company_id):
      
   company = Company.objects.get(id=company_id)
   reviews = Review.objects.filter(company=company)
+  
 
+  for index, review in enumerate(reviews):
+      reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
+  
   #experience_choices= Review.experience
   if request.method == "POST":
         if not request.user.is_staff:
@@ -191,7 +195,7 @@ def add_favorite_view(request: HttpRequest, review_id):
     review = Review.objects.get(id=review_id)
     company_id= review.company.id
     print('test here')
-    is_favorite = (Favorite.objects.filter(user=request.user, review=review).exists())
+    is_favorite = Favorite.objects.filter(user=request.user, review=review).exists()
     if not Favorite.objects.filter(user=request.user, review=review).exists():
         new_favorite = Favorite(user=request.user, review=review)
         print('test fav')
@@ -215,4 +219,4 @@ def remove_favorite_view(request: HttpRequest, review_id):
         user_favorite.delete()
         
 
-    return redirect("books:book_detail_view", company_id=company_id)
+    return redirect("companies:company_detail_view", company_id= company_id)
