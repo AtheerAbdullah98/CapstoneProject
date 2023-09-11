@@ -1,16 +1,131 @@
 {% extends 'main/base.html' %}
+{%load static %}
 
-{% block title %}  {% endblock %}
+{% block title %} home {% endblock %}
 
 
 {% block content %}
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900);
+    .contact-form {
+      margin-top: 30px;
+    }
+    .contact-form .input-block {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: solid 1px #466A8B;
+      width: 100%;
+      height: 60px;
+      padding: 25px;
+      position: relative;
+      margin-bottom: 20px;
+      -moz-transition: all 0.3s ease-out;
+      -o-transition: all 0.3s ease-out;
+      -webkit-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+    }
+    .contact-form .input-block.focus {
+      background-color: #fff;
+      border: solid 1px #466A8B;
+    }
+    .contact-form .input-block.textarea {
+      height: auto;
+    }
+    .contact-form .input-block.textarea .form-control {
+      height: auto;
+      resize: none;
+    }
+    .contact-form .input-block label {
+      position: absolute;
+      left: 25px;
+      top: 25px;
+      display: block;
+      margin: 0;
+      font-weight: 300;
+      z-index: 1;
+      color: #333;
+      font-size: 18px;
+      line-height: 10px;
+    }
+    .contact-form .input-block .form-control {
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border-radius: 0;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      font-size: 18px;
+      color: #333;
+    }
+    .contact-form .input-block .form-control:focus label {
+      top: 0;
+    }
+    .contact-form .square-button {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #466A8B;
+      font-size: 26px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: center;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+      -moz-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      padding: 0 60px;
+      height: 60px;
+      border: none;
+      width: 100%;
+    }
+    .contact-form .square-button:hover, .contact-form .square-button:focus {
+      background-color: white;
+    }
+    
+    @media (min-width: 768px) {
+      .contact-wrap {
+        width: 60%;
+        margin: auto;
+      }
+    }
+    /*----page styles---*/
+    body {
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuMCIgeTE9IjAuNSIgeDI9IjEuMCIgeTI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmNTEyZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2RkMjQ3NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+      background-size: 100%;
+      background-image: -moz-linear-gradient(left, #30334B, #D9C4AA);
+      background-image: -webkit-linear-gradient(left, #C49D78, #C49D78);
+      background-image: linear-gradient(to right, #D9C4AA, #466A8B);
+      font-family: "Roboto", sans-serif;
+    }
+    
+    .contact-wrap {
+      padding: 15px;
+    }
+    
+    h1 {
+      background-color: white;
+      color: #466A8B;
+      padding: 40px;
+      margin: 0 0 30px;
+      font-size: 30px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: center;
+    }
+   
+</style>
 
 <div class="row pt-4">
     <div class="col-12 col-md-6 order-2 order-md-1">
-        <div class="d-flex flex-column justify-content-center align-items-center h-100">
-            <h1>Welcome to our project</h1>
-            <p> This A website where job seekers, trainees, and employees can express their personal experiences with local Companies.
-                !</p>
+        <div class="d-flex flex-column  align-items-center ">
+            <h1 >Welcome to our project</h1>
+            <p> This A website where job seekers, trainees, and employees can express their personal experiences with local Companies.  !</p>
             <a href="{% url 'main:about_view' %}" class="btn btn-success rounded rounded-5">Learn More</a>
         </div>
 
@@ -19,5 +134,36 @@
 
 <hr />
 
+<h1> Countant us </h1>
+  <section class="contact-wrap">
+    <form action="" class="contact-form">
+      <div class="col-sm-12">
+        <div class="input-block">
+          <label for="">Your Name</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="input-block">
+          <label for="">Email</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="input-block textarea">
+          <label for="">Drop your message here</label>
+          <textarea rows="3" type="text" class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <button class="square-button">Send</button>
+      </div>
+    </form>
+  </section>
+  
+  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'styles/index.js' %}" ></script>
 
 {% endblock %}

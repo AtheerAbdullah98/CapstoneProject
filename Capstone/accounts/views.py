@@ -8,16 +8,18 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 def register_user_view(request : HttpRequest):
+     
+    msgg = None
 
     if request.method == "POST":
         new_user = User.objects.create_user(first_name=request.POST["first_name"], last_name=request.POST["last_name"], username=request.POST["username"], email=request.POST["email"], password=request.POST["password"], )
         new_user.save()
         profile=Profile.objects.create(user=new_user)
         profile.save()
-        return redirect("accounts:login_user_view")
+        msgg = " "
     
-
-    return render(request, "accounts/register.html")
+    return render(request, "accounts/registration.html", {"msgg": msgg})
+    
 
 
 def login_user_view(request: HttpRequest):
@@ -34,7 +36,7 @@ def login_user_view(request: HttpRequest):
             msg = "Username or password is no correct. No user found."
 
 
-    return render(request, "accounts/login.html", {"msg": msg})
+    return render(request, "accounts/registration.html", {"msg": msg})
 
 
 
