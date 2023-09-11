@@ -4,63 +4,63 @@
 
 {% block content %}
 <div class="d-flex flex-column gap-2">
-    <h1>{{  company.name }}</h1>
-    <div class="d-flex justify-content-end">
+  <h1>{{ company.name }}</h1>
+  <div class="d-flex justify-content-end">
 
-        {% if request.user.is_staff %}
-        <div>
-            <a href="{% url 'companies:company_update_view' company.id %}" class="btn btn-warning">Update</a>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-        </div>
-        {% endif %}
-        {% if company.approved == False %}
-        <div>
-            <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" name="approved" value=True class="btn"
-                    style="background-color: rgb(250, 240, 230); color:rgb(92, 84, 112) ;">Approve</button>
-            </form>
-        </div>
-        {% endif %}
-      
+    {% if request.user.is_staff %}
+    <div>
+      <a href="{% url 'companies:company_update_view' company.id %}" class="btn btn-warning">Update</a>
+      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
     </div>
-
-    <div class="row">
-        <div class="col-4"><img src="{{ company.image.url }}" class="rounded-4 w-100" /></div>
-        <div class="col">
-            <div>
-                <h3>{{company.info}}</h3>
-                <p>{{ field.description }}</p>
-                <p>{{ company.description }}</p>
-                
-            </div>
-        </div>
+    {% endif %}
+    {% if company.approved == False %}
+    <div>
+      <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="approved" value=True class="btn"
+          style="background-color: rgb(250, 240, 230); color:rgb(92, 84, 112) ;">Approve</button>
+      </form>
     </div>
+    {% endif %}
 
-    <hr />
+  </div>
 
-    
+  <div class="row">
+    <div class="col-4"><img src="{{ company.image.url }}" class="rounded-4 w-100" /></div>
+    <div class="col">
+      <div>
+        <h3>{{company.info}}</h3>
+        <p>{{ field.description }}</p>
+        <p>{{ company.description }}</p>
+
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+
 </div>
 
 
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete company</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ? 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <a href="{% url 'companies:company_delete_view' company.id %}"  class="btn btn-danger">Yes, Delete!</a>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete company</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{% url 'companies:company_delete_view' company.id %}" class="btn btn-danger">Yes, Delete!</a>
       </div>
     </div>
   </div>
+</div>
 
 <!-- End  Modal -->
 
@@ -68,58 +68,65 @@
 <!--company reviews-->
 <hr />
 
-  <h4>Reviews ( {{ company.review_set.count }} )</h4>
-  <div class="mt-4">
-    {% for review in reviews %}
-      <div class="d-flex flex-column gap-1 border border-1 rounded p-4 mt-3">
-        <h4>{{review.user.first_name}}</h4>
-        <h6>{{ review.publish_date }}</h6>
-        <p>{{review.experience}}</p>
-        <h3>{{ review.position }}</h3>
-        <h6>{{ review.description }}</h6>
-        <h6>{{review.rating}}</h6>
-        {% if request.user.id == review.user.id or request.user.is_staff %}
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteReviewModal">Delete</button>
-        <a href="{% url 'companies:review_update_view' review.id %}" class="btn btn-warning">Update reviews {{review.id}}</a>
-        {% endif %}
-      </div>
-        <!-- for reviw -->
-        {% if request.user.id == review.user.id or request.user.is_staff %}
-        <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Review</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ? 
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{% url 'companies:review_delete_view' review.id %}"  class="btn btn-danger">Yes, Delete!</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endif %}
-    {% endfor %}
+<h4>Reviews ( {{ company.review_set.count }} )</h4>
+<div class="mt-4">
+  {% for review in reviews %}
+  <div class="d-flex flex-column gap-1 border border-1 rounded p-4 mt-3">
+    <h4>{{review.user.first_name}}</h4>
+    <h6><a
+        href="{% if is_favorite  %}{% url 'companies:remove_favorite_view' review.id  %}{% else %}{% url 'companies:add_favorite_view' review.id  %}{% endif %}"
+        class="{% if is_favorite %} text-danger {% endif%}"><span class="material-symbols-outlined">favorite</span></a>
+    </h6>
+    <h6>{{ review.publish_date }}</h6>
+    <p>{{review.experience}}</p>
+    <h3>{{ review.position }}</h3>
+    <h6>{{ review.description }}</h6>
+    <h6>{{review.rating}}</h6>
+    {% if request.user.id == review.user.id or request.user.is_staff %}
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+      data-bs-target="#deleteReviewModal">Delete</button>
+    <a href="{% url 'companies:review_update_view' review.id %}" class="btn btn-warning">Update reviews
+      {{review.id}}</a>
+    {% endif %}
   </div>
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      {% if request.user.is_authenticated %}
-        <a href="{% url 'companies:add_Review_view' company.id %}" class="btn btn-warning">Adding reviews {{company.id}}</a>
-        
-
-      {% else %}
-        <div class="p-4">
-          <h5>To add review, Please <a href="{% url 'accounts:login_user_view' %}">sign in</a> , or <a href="{% url 'accounts:register_user_view' %}">sign up</a> </h5>
+  <!-- for reviw -->
+  {% if request.user.id == review.user.id or request.user.is_staff %}
+  <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Review</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
-      {% endif %}
+        <div class="modal-body">
+          Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="{% url 'companies:review_delete_view' review.id %}" class="btn btn-danger">Yes, Delete!</a>
+        </div>
+      </div>
     </div>
   </div>
+  {% endif %}
+  {% endfor %}
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'companies:add_Review_view' company.id %}" class="btn btn-warning">Adding reviews {{company.id}}</a>
+
+
+    {% else %}
+    <div class="p-4">
+      <h5>To add review, Please <a href="{% url 'accounts:login_user_view' %}">sign in</a> , or <a
+          href="{% url 'accounts:register_user_view' %}">sign up</a> </h5>
+    </div>
+
+    {% endif %}
+  </div>
+</div>
 
 
 

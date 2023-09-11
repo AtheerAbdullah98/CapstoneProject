@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 
 from django.contrib.auth.models import User
 
-from .models import Company,Review
+from .models import Company, Favorite,Review
 
 
 # Create your views here.
@@ -102,6 +102,7 @@ def company_detail_view(request: HttpRequest, company_id):
      
   company = Company.objects.get(id=company_id)
   reviews = Review.objects.filter(company=company)
+
   #experience_choices= Review.experience
   if request.method == "POST":
         if not request.user.is_staff:
@@ -180,3 +181,38 @@ def all_reveiws_view(request: HttpRequest):
    
     # reveiws = Review.objects.filter( id= user_id )
     return render(request, "companies/all_reveiws.html")
+
+def add_favorite_view(request: HttpRequest, review_id):
+
+    if not request.user.is_authenticated:
+        return redirect("accounts:login_user_view")
+    
+
+    review = Review.objects.get(id=review_id)
+    company_id= review.company.id
+    print('test here')
+    is_favorite = (Favorite.objects.filter(user=request.user, review=review).exists())
+    if not Favorite.objects.filter(user=request.user, review=review).exists():
+        new_favorite = Favorite(user=request.user, review=review)
+        print('test fav')
+        new_favorite.save()
+        print(new_favorite)
+        print(request.user.favorite_set.all)
+
+    return redirect("companies:company_detail_view", company_id= company_id)
+
+def remove_favorite_view(request: HttpRequest, review_id):
+
+    if not request.user.is_authenticated:
+        return redirect("accounts:login_user_view")
+    
+
+    review = Review.objects.get(id=review_id)
+    company_id= review.company.id
+    user_favorite = Favorite.objects.filter(user=request.user, review=review).first()
+
+    if user_favorite:
+        user_favorite.delete()
+        
+
+    return redirect("books:book_detail_view", company_id=company_id)

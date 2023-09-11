@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Company,Review
+from .models import Company, Favorite,Review
 
 # Register your models here.
 
@@ -17,4 +17,4 @@ class ReviewAdmin(admin.ModelAdmin):
 
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Company, CompanyAdmin)
-
+admin.site.register(Favorite)
