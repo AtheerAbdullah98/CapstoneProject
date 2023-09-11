@@ -32,6 +32,14 @@ class Review(models.Model):
     rating = models.IntegerField(choices=rating_choices)
 
 
+
     def __str__(self):
         return f"{self.user.first_name} on {self.company.name}"
 
+class Favorite(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"{self.review} on {self.review}"

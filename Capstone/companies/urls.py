@@ -16,4 +16,6 @@ urlpatterns = [
     path("reveiw/delete/<review_id>/",views.review_delete_view,name="review_delete_view"),
     path("reveiw/update/<review_id>/", views.review_update_view, name="review_update_view"),
     path("reveiw/all/", views.all_reveiws_view, name="all_reveiws_view"),
+    path("favorite/add/<review_id>/", views.add_favorite_view, name="add_favorite_view"),
+    path("favorite/delete/<review_id>/", views.remove_favorite_view, name="remove_favorite_view"),
 ]
