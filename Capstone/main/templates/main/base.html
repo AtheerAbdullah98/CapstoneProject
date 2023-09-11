@@ -52,6 +52,7 @@
                         <li><a class="dropdown-item" href="{% url 'accounts:profile_page' request.user.id %}">Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:update_profile_page' request.user.id %}">Update Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:added_company_list_view' user.id %}">My added company</a></li>
+                        <li><a class="dropdown-item" href="{% url 'companies:all_reveiws_view' user.id %}">My reveiws</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">Log Out</a></li>
                       {% else %} 
                         <li><a class="dropdown-item" href="{% url 'accounts:register_user_view' %}">Register</a></li>

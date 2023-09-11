@@ -175,3 +175,8 @@ def review_update_view(request:HttpRequest, review_id):
 
     # return render(request, "companies/update_review.html",review.id)
 
+def all_reveiws_view(request: HttpRequest, user_id):
+    
+   
+    reveiws = Review.objects.filter( id= user_id )
+    return render(request, "companies/all_reveiws.html", {"reveiws" : reveiws})
