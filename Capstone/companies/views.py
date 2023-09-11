@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 
 from django.contrib.auth.models import User
 
-from .models import Company, Favorite,Review
+from .models import Company, Favorite, Report,Review
 
 
 # Create your views here.
@@ -194,14 +194,11 @@ def add_favorite_view(request: HttpRequest, review_id):
 
     review = Review.objects.get(id=review_id)
     company_id= review.company.id
-    print('test here')
-    is_favorite = Favorite.objects.filter(user=request.user, review=review).exists()
+
     if not Favorite.objects.filter(user=request.user, review=review).exists():
         new_favorite = Favorite(user=request.user, review=review)
-        print('test fav')
         new_favorite.save()
-        print(new_favorite)
-        print(request.user.favorite_set.all)
+
 
     return redirect("companies:company_detail_view", company_id= company_id)
 
@@ -220,3 +217,32 @@ def remove_favorite_view(request: HttpRequest, review_id):
         
 
     return redirect("companies:company_detail_view", company_id= company_id)
+
+def user_favorite_view(request: HttpRequest):
+    return render(request,"companies/user_favorite.html")
+
+def report_view(request: HttpRequest, review_id):
+
+    if not request.user.is_authenticated:
+        return redirect("accounts:login_user_view")
+    
+    
+    review = Review.objects.get(id=review_id)
+    company_id= review.company.id
+    if Report.objects.filter(user=request.user, review=review).exists():
+        msg='Already reported'
+        url = resolve_url("companies:company_detail_view" ,company_id) + "?msg=" + msg
+        return redirect(url)
+    if not Report.objects.filter(user=request.user, review=review).exists():
+        new_report = Report(user=request.user, review=review)
+        new_report.save()
+        msg='Reported'
+        url = resolve_url("companies:company_detail_view" ,company_id) + "?msg=" + msg
+        return redirect(url)
+    return redirect("companies:company_detail_view", company_id= company_id) 
+
+def all_report_view(request: HttpRequest):
+
+    reports = Report.objects.all
+    
+    return render(request, "companies/all_report.html", {"reports" : reports})
