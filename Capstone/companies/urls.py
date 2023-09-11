@@ -18,4 +18,7 @@ urlpatterns = [
     path("reveiw/all/", views.all_reveiws_view, name="all_reveiws_view"),
     path("favorite/add/<review_id>/", views.add_favorite_view, name="add_favorite_view"),
     path("favorite/delete/<review_id>/", views.remove_favorite_view, name="remove_favorite_view"),
+    path("report/<review_id>/", views.report_view, name="report_view"),
+    path("reports", views.all_report_view, name="all_report_view"),
+    path("favorites/", views.user_favorite_view, name="user_favorite_view"),
 ]

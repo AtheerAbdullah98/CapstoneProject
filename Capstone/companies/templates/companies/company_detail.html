@@ -3,6 +3,13 @@
 {% block title %} Details {{ company.name }} {% endblock %}
 
 {% block content %}
+{% if "msg" in  request.GET %}
+<div class="alert alert-dismissible fade show"
+    style="background-color: rgb(92, 84, 112); color:  rgb(250, 240, 230);" role="alert">
+    <strong>{{request.GET.msg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
 <div class="d-flex flex-column gap-2">
   <h1>{{ company.name }}</h1>
   <div class="d-flex justify-content-end">
@@ -76,6 +83,11 @@
     <h6><a
         href="{% if review.is_favored  %}{% url 'companies:remove_favorite_view' review.id  %}{% else %}{% url 'companies:add_favorite_view' review.id  %}{% endif %}"
         class="{% if review.is_favored %} text-danger {% endif%}"><span class="material-symbols-outlined">favorite </span></a> {{ review.favorite_set.count }}
+    </h6>
+    <h6><a href="{% url 'companies:report_view' review.id  %}" class="text-danger"> 
+      <span class="material-symbols-outlined">
+        flag
+        </span></a>
     </h6>
     <h6>{{ review.publish_date }}</h6>
     <p>{{review.experience}}</p>
