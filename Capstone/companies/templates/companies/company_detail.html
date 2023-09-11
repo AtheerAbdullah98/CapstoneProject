@@ -81,7 +81,29 @@
     <p>{{review.experience}}</p>
     <h3>{{ review.position }}</h3>
     <h6>{{ review.description }}</h6>
-    <h6>{{review.rating}}</h6>
+    <div style="color: #f9c448;">
+      {% if review.rating == 1 %}
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 2 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 3 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 4 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 5 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% endif %} 
+  </div>
     {% if request.user.id == review.user.id or request.user.is_staff %}
     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
       data-bs-target="#deleteReviewModal">Delete</button>
