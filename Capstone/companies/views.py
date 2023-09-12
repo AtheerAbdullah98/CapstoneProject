@@ -116,7 +116,7 @@ def company_detail_view(request: HttpRequest, company_id):
         msg='company approved'
         return redirect("companies:all_companies_view")
   
-  return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews, "Review" : Review})
+  return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
 
 def companies_search_view(request: HttpRequest):
 
@@ -152,18 +152,17 @@ def add_Review_view(request: HttpRequest,company_id):
 
 
 def review_delete_view(request: HttpRequest, review_id):
-    url= request.META.get('HTTP_REFERER')
-    is_user = Review.objects.get(id=review_id)
-    if request.user.id != is_user.user.id and not request.user.is_staff:
-            # print(request.user.id == is_user.user.id)
-            return redirect("accounts:login_user_view")
+    if not request.user.is_staff and request.user :
+        review=Review.objects.get(user=request.user,id=review_id)
+        review.delete()
+        return redirect("companies:company_detail_view",review.company.id)
+    elif request.user.is_staff:
+         review=Review.objects.get(id=review_id)
+         review.delete()
+         return redirect("companies:company_detail_view",review.company.id)
+    else:
+        return redirect("accounts:login_user_view")
     
-    isreview = Review.objects.filter(user=request.user)
-    review = Review.objects.get(id=review_id)
-    review.delete()
-    
-
-    return redirect(url)
 
 def review_update_view(request:HttpRequest, review_id):
     # try:
@@ -174,13 +173,19 @@ def review_update_view(request:HttpRequest, review_id):
     
         review = Review.objects.get(id=review_id,)
         # companyId=Review.company.id
-
         if request.method == "POST":
+            if "id" in request.GET:
+                global company_id 
+                company_id = request.GET['id']
+                print(company_id)
+                
             review.experience = request.POST["experience"]
             review.position = request.POST["position"]
             review.description = request.POST["description"]
             review.rating = request.POST["rating"]
             review.save()
+            return redirect("companies:company_detail_view", company_id= company_id)
+
 
             # return redirect("companies:company_detail_view", review_id=review.id)
         return render(request,"companies/update_review.html",{"review":review })
@@ -261,3 +266,20 @@ def company_filter_view(request: HttpRequest):
     
     
     return render(request, "companies/company_filter.html")
+
+# def review_filter_view(request: HttpRequest):
+
+#     if "search" in request.GET:
+#         reviews = Review.objects.filter(name__contains=request.GET["search"])
+#     elif "تقنية" in request.GET:
+#         companies = Company.objects.filter(field = "تقنية")
+#     elif "صحي" in request.GET:
+#         companies = Company.objects.filter(field = "صحي")
+#     elif "البنوك" in request.GET:
+#         companies = Company.objects.filter(field = "البنوك")
+#     elif "الاتصالات" in request.GET:
+#         companies = Company.objects.filter(field = "الاتصالات")
+#     else:
+#         companies = Company.objects.all()
+
+#     return render(request, 'companies/search_results.html', {"reviews" : reviews})
