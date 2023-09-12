@@ -118,14 +118,14 @@
   </div>
     {% if request.user.id == review.user.id or request.user.is_staff %}
     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-      data-bs-target="#deleteReviewModal">Delete</button>
+      data-bs-target="#deleteReviewModal{{review.id}}">Delete</button>
     <a href="{% url 'companies:review_update_view' review.id %}?id={{company.id}}" class="btn btn-warning">Update reviews
       {{review.id}}</a>
     {% endif %}
   </div>
   <!-- for reviw -->
   {% if request.user.id == review.user.id or request.user.is_staff %}
-  <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteReviewModal{{review.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

@@ -152,14 +152,10 @@ def add_Review_view(request: HttpRequest,company_id):
 
 
 def review_delete_view(request: HttpRequest, review_id):
-    if not request.user.is_staff and request.user :
-        review=Review.objects.get(user=request.user,id=review_id)
+    review=Review.objects.get(id=review_id)
+    if review.user ==request.user or request.user.is_staff:
         review.delete()
-        return redirect("companies:company_detail_view",review.company.id)
-    elif request.user.is_staff:
-         review=Review.objects.get(id=review_id)
-         review.delete()
-         return redirect("companies:company_detail_view",review.company.id)
+        return redirect('companies:company_detail_view',review.company.id)
     else:
         return redirect("accounts:login_user_view")
     
@@ -267,7 +263,7 @@ def company_filter_view(request: HttpRequest):
     
     return render(request, "companies/company_filter.html")
 
-# def review_filter_view(request: HttpRequest):
+# def review_filter_view(request: HttpRequest,company_id):
 
 #     if "search" in request.GET:
 #         reviews = Review.objects.filter(name__contains=request.GET["search"])
