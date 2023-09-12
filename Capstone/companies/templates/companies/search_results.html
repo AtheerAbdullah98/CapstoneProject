@@ -6,8 +6,7 @@
 {% block content %}
 
 <div class="d-flex justify-content-between mt-4">
-    <h1> Search Results for "<span class="text-success"> {% if "search" in request.GET %} {{ request.GET.search }} {%
-            elif "تقنية" in request.GET %} {{request.GET.تقنية}} {% elif "صحي" in request.GET %} {{request.GET.صحي}}
+    <h1> Search Results for "<span class="text-success"> {% if "search" in request.GET %} {{ request.GET.search }} {%elif "تقنية" in request.GET %} {{request.GET.تقنية}} {% elif "صحي" in request.GET %} {{request.GET.صحي}}
             {% elif "البنوك" in request.GET %} {{request.GET.البنوك}} {% elif "الاتصالات" in request.GET %}
             {{request.GET.الاتصالات}} {% endif %} </span>"</h1>
 </div>
