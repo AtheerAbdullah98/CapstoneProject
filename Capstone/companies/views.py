@@ -144,6 +144,7 @@ def add_Review_view(request: HttpRequest,company_id):
 
 
 def review_delete_view(request: HttpRequest, review_id):
+    url= request.META.get('HTTP_REFERER')
     is_user = Review.objects.get(id=review_id)
     if request.user.id != is_user.user.id and not request.user.is_staff:
             # print(request.user.id == is_user.user.id)
@@ -154,7 +155,7 @@ def review_delete_view(request: HttpRequest, review_id):
     review.delete()
     
 
-    return redirect("companies:all_companies_view")
+    return redirect(url)
 
 def review_update_view(request:HttpRequest, review_id):
     # try:
