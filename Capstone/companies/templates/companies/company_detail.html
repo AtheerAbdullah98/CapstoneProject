@@ -74,7 +74,17 @@
 
 <!--company reviews-->
 <hr />
-
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      Category
+  </a>
+  <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?employee=employee">employee</a></li>
+      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?interview=interview">interview</a></li>
+      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?coop=coop">coop</a></li>
+  </ul>
+</li>
 <h4>Reviews ( {{ company.review_set.count }} )</h4>
 <div class="mt-4">
   {% for review in reviews %}

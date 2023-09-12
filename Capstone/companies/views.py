@@ -109,7 +109,15 @@ def company_detail_view(request: HttpRequest, company_id):
 
   for index, review in enumerate(reviews):
       reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
-  
+  if "employee" in request.GET:
+        reviews = Review.objects.filter(experience__contains=request.GET["employee"])
+        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+  elif "interview" in request.GET:
+        reviews = Review.objects.filter(experience__contains=request.GET["interview"])
+        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+  elif "coop" in request.GET:
+        reviews = Review.objects.filter(experience__contains=request.GET["coop"])
+        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
   #experience_choices= Review.experience
   if request.method == "POST":
         if not request.user.is_staff:
