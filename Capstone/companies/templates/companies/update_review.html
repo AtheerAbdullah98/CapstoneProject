@@ -1,47 +1,144 @@
+
 {% extends 'main/base.html' %}
+{%load static %}
 
 
-{% block title %} Update Review {% endblock %}
+{% block title %} add reveiw  {% endblock %}
+
 
 {% block content %}
+<style>
 
-<div class="row justify-content-center">
-
-    <div class="col-md-6">
-        <h2>Update Review</h2>
-
-        <form  action="{% url 'companies:review_update_view' review.id %}?id={{request.GET.id}}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
-            {% csrf_token %} 
-            <label>Experience: </label>
-            <select name="experience" class="form-select">
-                {% for value, title in review.experience_choices %}
-                    <option value="{{value}}" {% if review.Experience == value %} selected {% endif%}>{{title}}</option>
-                {% endfor %}
-            </select>
-            
-            <label>Position: </label>
-            <input type="text" name="position" value="{{ review.position }}" class="form-control"/>
-            
-            <label>Description: </label>
-            <textarea name="description" class="form-control">{{ review.description }}</textarea> 
-            
-           <label class="form-label">Rate your experience:</label>
-            <div class="rate"style="color: #f9c448;">
-                <input type="radio" name="rating" id="rating5" value="5" {% if review.rating == 5 %} checked {% endif%} /><label for="rating5" title="5" class="fa fa-star"> 5 </label>
-                <input type="radio" name="rating" id="rating4" value="4" {% if review.rating == 4 %} checked {% endif%}/><label for="rating4" title="4" class="fa fa-star"> 4 </label>
-                <input type="radio" name="rating" id="rating3" value="3" {% if review.rating == 3 %} checked {% endif%}/><label for="rating3" title="3" class="fa fa-star"> 3 </label>
-                <input type="radio" name="rating" id="rating2" value="2" {% if review.rating == 2 %} checked {% endif%}/><label for="rating2" title="2" class="fa fa-star"> 2 </label>
-                <input type="radio" name="rating" id="rating1" value="1" {% if review.rating == 1 %} checked {% endif%}/><label for="rating1" title="1" class="fa fa-star"> 1 </label>
-            </div>
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
 
 
-            <input type="submit" value="update review" class="btn btn-primary"/>
+.container-signup .form,
+.container-signup form  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+
+body {
+ 
+  min-height: 100vh;
+  background: #e8e8e8;
+  font-family: "Source Sans Pro", sans-serif;
+  overflow: hidden;
+  direction: rtl;
+}
+
+
+.container-signup {
+ margin-right: 20%;
+  margin-top: 5%;
+  padding: 10px;
+  width: 800px;
+  height: 600px;
+  background: white;
+  position: relative;
+  display: grid;
+  box-shadow: 2px 2px 10px 0 rgba(51, 51, 51, 0.2);
+}
+
+
+
+.container-signup .form--heading {
+  font-size: 25px;
+  height: 50px;
+  color: #30334B;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+
+.container-signup form  {
+  width: 50%;
+}
+.container-signup form > * {
+  margin: 10px;
+}
+.form-label {
+    
+    margin-left: 83% !important;
+    margin-bottom: -5px !important;
+    width: 65px;
+}
+
+
+
+.container-signup form input::placeholder {
+  color: #333;
+  font-size: 10px;
+}
+.container-signup form input:focus {
+  outline: 0;
+  border-bottom: 1px solid rgba(128, 155, 206, 0.7);
+  transition: 0.6s all ease;
+}
+
+.container-signup .button {
+  width: 50%;
+  height: 30px;
+  border: 0;
+  outline: 0;
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+  position: relative;
+  z-index: 3;
+  background: #30334B;
+  font-family: "Source Sans Pro", sans-serif;
+  cursor: pointer;
+}
+
+
+
+
+</style>
+<div class="container-signup">
+   <div class="form form--signup ">
+        <div class="form--heading"> تعديل تعليق</div>
+
+        {% if request.user.is_authenticated %}
+
+        <form action="{% url 'companies:review_update_view' review.id %}?id={{request.GET.id}}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <label class="form-label" >نوع التجربه </label>
+        <select name="experience" class="form-select" >
+            {% for value, title in review.experience_choices %}
+                <option value="{{value}}" {% if review.Experience == value %} selected {% endif%}>{{title}}</option>
+            {% endfor %}
+        </select>
+        <label class="form-label" >المنصب  </label>
+        <input type="text" name="position" value="{{ review.position }}" class="form-control">
+        <label class="form-label"> الوصف </label>
+        <textarea class="form-control" name="description">{{ review.description }}</textarea>
+        <label class="form-label">قيم تجربتك</label>
+                <div class="rate"style="color: #f9c448;">
+                    <input type="radio" name="rating" id="rating5" value="5"  {% if review.rating == 5 %} checked {% endif%}/><label for="rating5" title="5" class="fa fa-star"> 5 </label>
+                    <input type="radio" name="rating" id="rating4" value="4" {% if review.rating == 4 %} checked {% endif%}/><label for="rating4" title="4" class="fa fa-star"> 4 </label>
+                    <input type="radio" name="rating" id="rating3" value="3" {% if review.rating == 3 %} checked {% endif%}/><label for="rating3" title="3" class="fa fa-star"> 3 </label>
+                    <input type="radio" name="rating" id="rating2" value="2"{% if review.rating == 2 %} checked {% endif%}/><label for="rating2" title="2" class="fa fa-star"> 2 </label>
+                    <input type="radio" name="rating" id="rating1" value="1"{% if review.rating == 1 %} checked {% endif%}/><label for="rating1" title="1" class="fa fa-star"> 1 </label>
+                </div>
+        
+           <button class="button" type="submit"  >تحديث</button>
         </form>
+        {% else %}
 
-    </div>
+        <div class="p-4">
+            <h5>To comment, Please <a href="{% url 'account:login_user_view' %}"class="text-decoration-none"style="color: #3a7020;">sign in</a> , or <a href="{% url 'account:register_user_view' %}" class="text-decoration-none"style="color: #3a7020;">sign up</a> </h5>
+        </div>
 
+        {% endif %}
+   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'styles/a.js' %}" ></script>
 
 {% endblock %}
+
