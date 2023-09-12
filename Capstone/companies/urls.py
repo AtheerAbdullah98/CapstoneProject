@@ -22,4 +22,5 @@ urlpatterns = [
     path("reports", views.all_report_view, name="all_report_view"),
     path("favorites/", views.user_favorite_view, name="user_favorite_view"),
     path("field/", views.company_filter_view, name="company_filter_view"),
+    # path("reviews/filter/", views.review_filter_view, name="review_filter_view"),
 ]
