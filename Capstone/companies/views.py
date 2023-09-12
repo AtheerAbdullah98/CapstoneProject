@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, resolve_url
 from django.http import HttpRequest, HttpResponse
 
 from django.contrib.auth.models import User
+from accounts.models import Profile
 
 from .models import Company, Favorite, Report,Review
 
@@ -31,9 +32,14 @@ def add_company_view(request: HttpRequest):
     except: 
         return redirect("main:home_view")
 
-def dashbord_view(request: HttpRequest):
+def dashbord_view(request: HttpRequest, user_id):
+    try:
+        profile = Profile.objects.get(user__id=user_id)
+    except:
+        return render(request, "main/not_found.html")
 
-    return render(request, "companies/dashboard.html")
+
+    return render(request, "companies/dashboard.html",{"profile" : profile})
 
 def approve_company_view(request: HttpRequest):
     try:

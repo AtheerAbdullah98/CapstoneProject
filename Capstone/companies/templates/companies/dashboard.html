@@ -20,9 +20,11 @@ body{
   grid-column: 1 / span 1;
 }
 .dashboard .description {
-  grid-row: 2 / span 1;
+  grid-row: 1 / span 1;
   grid-column: 2 / span 3;
 }
+.dashboard .stat {
+    grid-column: 2 / span 3}
 .dashboard-card {
   background: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -67,9 +69,10 @@ body{
     <div class="dashboard">
         <div class="dashboard-card main">
             <div class="dashboard-card-content">
+                <p> {{profile.user.avatar}}</p>
                 <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" alt="" width="100" class="img-circle">
-                <h2>Benjamin Terrier</h2>
-                <p>CTO at "La Source"</p>
+                <h2>{{profile.user.username}}</h2>
+                <p>{{profile.user.email}}</p>
             </div>
         </div>
         <div class="dashboard-card stat ">
