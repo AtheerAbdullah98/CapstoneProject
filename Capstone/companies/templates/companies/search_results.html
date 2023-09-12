@@ -1,16 +1,19 @@
 {% extends 'main/base.html' %}
 
 
-{% block title %} All companies  {% endblock %}
+{% block title %} All companies {% endblock %}
 
 {% block content %}
 
 <div class="d-flex justify-content-between mt-4">
-    <h1> Search Results for "<span class="text-success"> {{ request.GET.search }} </span>"</h1>
+    <h1> Search Results for "<span class="text-success"> {% if "search" in request.GET %} {{ request.GET.search }} {%
+            elif "تقنية" in request.GET %} {{request.GET.تقنية}} {% elif "صحي" in request.GET %} {{request.GET.صحي}}
+            {% elif "البنوك" in request.GET %} {{request.GET.البنوك}} {% elif "الاتصالات" in request.GET %}
+            {{request.GET.الاتصالات}} {% endif %} </span>"</h1>
 </div>
 
 <div class="row">
-{% for company in companies %}
+    {% for company in companies %}
     <div class="col-4 mt-4">
         <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between">
             <h3>{{ company.name }}</h3>
@@ -19,16 +22,17 @@
                 <div class="d-flex gap-1 align-items-center">
                     <h6 class="p-0 m-0"> {{company.info}}</h6>
                 </div>
-                
+
             </div>
-            
-            <a href="{% url 'companies:company_detail_view' company.id %}" class="d-flex justify-content-between text-decoration-none">
+
+            <a href="{% url 'companies:company_detail_view' company.id %}"
+                class="d-flex justify-content-between text-decoration-none">
                 <h5>more</h5>
             </a>
         </div>
     </div>
 
-{% endfor %}
+    {% endfor %}
 </div>
 
 {% endblock %}

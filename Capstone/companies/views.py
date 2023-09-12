@@ -122,6 +122,14 @@ def companies_search_view(request: HttpRequest):
 
     if "search" in request.GET:
         companies = Company.objects.filter(name__contains=request.GET["search"])
+    elif "تقنية" in request.GET:
+        companies = Company.objects.filter(field = "تقنية")
+    elif "صحي" in request.GET:
+        companies = Company.objects.filter(field = "صحي")
+    elif "البنوك" in request.GET:
+        companies = Company.objects.filter(field = "البنوك")
+    elif "الاتصالات" in request.GET:
+        companies = Company.objects.filter(field = "الاتصالات")
     else:
         companies = Company.objects.all()
 
@@ -246,3 +254,10 @@ def all_report_view(request: HttpRequest):
     reports = Report.objects.all
     
     return render(request, "companies/all_report.html", {"reports" : reports})
+
+
+def company_filter_view(request: HttpRequest):
+# جزء تابع للهوم بيج يحذف بعدين
+    
+    
+    return render(request, "companies/company_filter.html")
