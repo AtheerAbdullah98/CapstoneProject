@@ -7,33 +7,36 @@
 <style>
 body{
     direction: rtl;
+    background-color: #D9C4AA;
 }
 .dashboard {
   display: grid;
-  grid-template-columns: 300px 1fr 1fr 1fr;
+  grid-template-columns: 30% 30% 30%;
   grid-template-rows: 50% 50%;
   height: calc(100vh - 110px);
-  margin-top: 20px;
+  margin-top: 10%;
+  justify-content: space-between;
 }
 .dashboard .main {
-  grid-row: 1 / span 2;
-  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+ 
 }
 .dashboard .description {
-  grid-row: 1 / span 1;
-  grid-column: 2 / span 3;
+    grid-row: 1 / span 1;
 }
 .dashboard .stat {
-    grid-column: 2 / span 3}
+    grid-row: 1 / span 1;
+}
 .dashboard-card {
   background: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  padding: 10px;
+  padding: 25px;
   margin: 10px;
+  padding-top: 0px;
   text-align: center;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 }
 @media (max-width: 992px) {
   .dashboard {
@@ -43,15 +46,17 @@ body{
 
 /* Fonts and colors */
 .dashboard h2 {
+    color: #30334B;
   font-size: 20px;
 }
 .dashboard h3 {
-  color: #37B686;
+  color: #30334B;
   font-size: 25px;
   margin-bottom: 15px;
+
 }
 .dashboard p {
-  color: rgba(0,0,0,0.5);
+    color: #30334B;
   font-size: 16px;
 }
 .dashboard img {
@@ -61,33 +66,35 @@ body{
 .main p {
   margin-bottom: 30px;
 }
+.btn{
+    border-color: #466A8B;
+  color: #466A8B;
+}
+
 
 </style>
 
-<div class="container">
+<div class="container justify-content-center">
   
     <div class="dashboard">
         <div class="dashboard-card main">
             <div class="dashboard-card-content">
-                <p> {{profile.user.avatar}}</p>
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" alt="" width="100" class="img-circle">
-                <h2>{{profile.user.username}}</h2>
-                <p>{{profile.user.email}}</p>
+                <p> add pro logo</p>
+                <h2>اسم المستخدم : {{profile.user.username}}</h2>
+                <p>ايميل المستخدم : {{profile.user.email}}</p>
             </div>
         </div>
         <div class="dashboard-card stat ">
             <div class="dashboard-card-content">
-              <h3>3,536</h3>
-              <p>contributions</p>
-            </div>
+                <h3 class="text-center">طلبات إضافة شركات</h3>
+                <a  href="{% url 'companies:approve_company_view' %}" class="btn ">شركات بالانتظار الاضافة</a>
+              </div>
         </div>
        
         <div class="dashboard-card description">
             <div class="dashboard-card-content">
-              <h3>More about Benjamin</h3>
-              <p class="text-justify">
-                I am a full-stack developer with 9 years of experience working in startups.
-              </p>
+              <h3 class="text-center"> بلاغات </h3>
+              <a  href="{% url 'companies:all_report_view' %}" class="btn " >بلاغات المستخدمين  </a>
             </div>
         </div>
     </div>
