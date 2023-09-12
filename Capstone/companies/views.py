@@ -186,7 +186,7 @@ def all_reveiws_view(request: HttpRequest):
     # reveiws = Review.objects.filter( id= user_id )
     return render(request, "companies/all_reveiws.html")
 
-def add_favorite_view(request: HttpRequest, review_id,number):
+def add_favorite_view(request: HttpRequest, review_id):
 
     if not request.user.is_authenticated:
         return redirect("accounts:login_user_view")
