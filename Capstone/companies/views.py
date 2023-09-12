@@ -114,16 +114,34 @@ def company_detail_view(request: HttpRequest, company_id):
   
 
   for index, review in enumerate(reviews):
-      reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
-  if "موظف" in request.GET:
-        reviews = Review.objects.filter(experience__contains=request.GET["موظف"])
-        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
-  elif "مقابلة" in request.GET:
-        reviews = Review.objects.filter(experience__contains=request.GET["مقابلة"])
-        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
-  elif "تدريب" in request.GET:
-        reviews = Review.objects.filter(experience__contains=request.GET["تدريب"])
-        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+        reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
+  if "experience" and "position" in request.GET:
+        experience = request.GET.get("experience")
+        position= request.GET.get("position")
+        order= request.GET.get("order")
+        print(experience)
+        if experience !="all" and position != "all":
+            if order != "all":
+                Review.objects.filter(company=company,experience=experience,position=position).order_by(f"-{order}")
+            else:
+                reviews = Review.objects.filter(company=company,experience=experience,position=position)
+            return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+        if experience =="all" and position != "all":
+            if order != "all":
+                reviews = Review.objects.filter(company=company,position=position).order_by(f"-{order}")
+            else:
+                reviews = Review.objects.filter(company=company,position=position)
+            return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+        if experience !="all" and position == "all":
+            if order != "all":
+                reviews = Review.objects.filter(company=company,experience=experience).order_by(f"-{order}")
+            else:
+                reviews = Review.objects.filter(company=company,experience=experience)
+            return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+        else:
+            if order != "all":
+                reviews = Review.objects.filter(company=company).order_by(f"-{order}")
+            return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
   #experience_choices= Review.experience
   if request.method == "POST":
         if not request.user.is_staff:
