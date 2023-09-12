@@ -52,8 +52,11 @@
                       {% else %} Register {% endif %} 
                     </a>
                     <ul class="dropdown-menu">
+                      
+                      {% if request.user.is_staff %}
+                          <li><a class="dropdown-item" href="{% url 'companies:dashbord_view' %}">Dashboard</a></li>
+                      {% endif %}
                       {% if request.user.is_authenticated %}
-                        <li><a class="dropdown-item" href="#">anything</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:profile_page' request.user.id %}">Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:update_profile_page' request.user.id %}">Update Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:added_company_list_view' user.id %}">My added company</a></li>

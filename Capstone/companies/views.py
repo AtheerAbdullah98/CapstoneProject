@@ -31,7 +31,10 @@ def add_company_view(request: HttpRequest):
     except: 
         return redirect("main:home_view")
 
-    
+def dashbord_view(request: HttpRequest):
+
+    return render(request, "companies/dashboard.html")
+
 def approve_company_view(request: HttpRequest):
     try:
         msg = None
