@@ -144,7 +144,7 @@ body {
     </div>
     <div class="form form--signup">
       {% if msg %} 
-        <h5 class=" msg text-white bg-danger p-3 .message .button ">{{msgg}}</h5>
+        <h5 class=" msg text-white bs-body-bg p-3 .message .button ">{{msgg}}</h5>
          {% endif %}
       <div class="form--heading">Welcome! Sign Up</div>
       <form action="{% url 'accounts:register_user_view' %}" method="post" >
@@ -178,17 +178,13 @@ body {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{% static 'styles/main.js' %}" ></script>
 
-{% if msg %}
+{% if msg or msgg %}
 <script>
     document.getElementById("login").click();
 </script>
 {% endif %}
 
-{% if msgg %}
-<script>
-    document.getElementById("login").click();
-</script>
-{% endif %}
+
 
 
 {% endblock %}
