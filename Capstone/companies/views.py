@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from accounts.models import Profile
 
 from .models import Company, Favorite, Report,Review
-
+from django.db.models import Count
 
 # Create your views here.
 def add_company_view(request: HttpRequest):
@@ -110,39 +110,53 @@ def all_companies_view(request: HttpRequest):
 def company_detail_view(request: HttpRequest, company_id):
      
   company = Company.objects.get(id=company_id)
-  reviews = Review.objects.filter(company=company)
-  
-
+  reviews = Review.objects.filter(company=company)  
+# filter reviews
   for index, review in enumerate(reviews):
         reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
   if "experience" and "position" in request.GET:
         experience = request.GET.get("experience")
         position= request.GET.get("position")
         order= request.GET.get("order")
-        print(experience)
         if experience !="all" and position != "all":
             if order != "all":
                 Review.objects.filter(company=company,experience=experience,position=position).order_by(f"-{order}")
+            if order == "favorite": 
+                reviews_favorite = Review.objects.filter(company=company,experience=experience,position=position).annotate(favorite_count=Count('favorite'))
+                reviews = reviews_favorite.order_by('-favorite_count')
+                return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
             else:
                 reviews = Review.objects.filter(company=company,experience=experience,position=position)
             return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
         if experience =="all" and position != "all":
             if order != "all":
                 reviews = Review.objects.filter(company=company,position=position).order_by(f"-{order}")
+            if order == "favorite": 
+                reviews_favorite = Review.objects.filter(company=company,position=position).annotate(favorite_count=Count('favorite'))
+                reviews = reviews_favorite.order_by('-favorite_count')
+                return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
             else:
                 reviews = Review.objects.filter(company=company,position=position)
             return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
         if experience !="all" and position == "all":
             if order != "all":
                 reviews = Review.objects.filter(company=company,experience=experience).order_by(f"-{order}")
+            if order == "favorite": 
+                reviews_favorite = Review.objects.filter(company=company,experience=experience).annotate(favorite_count=Count('favorite'))
+                reviews = reviews_favorite.order_by('-favorite_count')
+                return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
             else:
                 reviews = Review.objects.filter(company=company,experience=experience)
             return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
         else:
             if order != "all":
                 reviews = Review.objects.filter(company=company).order_by(f"-{order}")
-            return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
-  #experience_choices= Review.experience
+                return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+            if order == "favorite":
+                reviews_favorite = Review.objects.annotate(favorite_count=Count('favorite'))
+                reviews = reviews_favorite.order_by('-favorite_count')
+                return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+# end filter reviews
   if request.method == "POST":
         if not request.user.is_staff:
             return redirect("accounts:login_user_view")
