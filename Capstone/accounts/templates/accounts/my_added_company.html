@@ -36,10 +36,10 @@ table th{
     <strong>{{request.GET.msg}}</strong>
 {% endif %}
        
-        <div class="border border-light p-2 mb-2 text-center p-4 mt-4 "> <h2 style="color: #30334B;" > الشركات المضافة</h2></div>
+        <div class="border border-light p-2 mb-2 text-center p-4 mt-4  "> <h2 style="color: #30334B;" > الشركات المضافة</h2></div>
 
         
-        <table class="table ">
+        <table class="table  table-secondary  table-opacity-75 ">
             <thead>
                 <tr>
                     <th scope="col "> </th>
@@ -53,7 +53,7 @@ table th{
                 
                 {% for company  in request.user.company_set.all %}
         <tr>
-            <th scope="row">-
+            <th scope="row ">-
             <td>{{ company.name }}</td>
             <td>{{ company.info }}</td>
             <td> {% if company.approved %}
