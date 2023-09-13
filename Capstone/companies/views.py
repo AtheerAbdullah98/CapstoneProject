@@ -59,21 +59,23 @@ def company_update_view(request:HttpRequest, company_id):
     if not request.user.is_staff:
       return redirect("accounts:login_user_view")
     
+    company = Company.objects.get(id=company_id)
+
     try:
-        company = Company.objects.get(id=company_id)
 
         if request.method == "POST":
-            company.name = request.POST["name"]
-            company.field = request.POST["field"]
-            company.info = request.POST["info"]
-            company.description = request.POST["description"]
-            if "image" in request.FILES:
-                company.image = request.FILES["image"]
-            company.save()
-
-            return redirect("companies:company_detail_view", company_id=company.id)
+                company.name = request.POST["name"]
+                company.field = request.POST["field"]
+                company.info = request.POST["info"]
+                company.description = request.POST["description"]
+                if "image" in request.FILES:
+                    company.image = request.FILES["image"]
+                company.save()
+                return redirect("companies:company_detail_view", company_id=company.id)
     except:
         return redirect("main:not_found_view")
+
+    return render(request,"companies/update_company.html",{"company":company})
 
 #deleting company from database
 def company_delete_view(request: HttpRequest, company_id):
