@@ -27,6 +27,7 @@ table th{
   'opsz' 24
 }
 
+
     
 </style>
 
@@ -34,12 +35,14 @@ table th{
 {% if "msg" in  request.GET %}
     <strong>{{request.GET.msg}}</strong>
 {% endif %}
-        <h1 class=" text-center">الشركات المضافة</h1>
+       
+        <div class="border border-light p-2 mb-2 text-center p-4 mt-4 "> <h2 style="color: #30334B;" > الشركات المضافة</h2></div>
+
         
-        <table class="table">
+        <table class="table ">
             <thead>
                 <tr>
-                    <th scope="col"> </th>
+                    <th scope="col "> </th>
                     <th scope="col">اسم الشركة</th>
                     <th scope="col">مجالها</th>
                     <th scope="col">الحاله</th>

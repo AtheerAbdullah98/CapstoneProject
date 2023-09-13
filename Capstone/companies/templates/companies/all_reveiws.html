@@ -5,11 +5,73 @@
 
 {% block content %}
 
+<style>
+
+.btn-3 {
+    background: #466A8B;
+    background: linear-gradient(0deg, #466A8B 0%, #729bc2 100%);
+    width: 110px;
+    height: 40px;
+    line-height: 33px;
+    padding: 0;
+  }
+  .btn-3 span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btn-3:before,
+  .btn-3:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    top: 0;
+     background: #466A8B;
+    transition: all 0.3s ease;
+  }
+  .btn-3:before {
+    height: 0%;
+    width: 2px;
+  }
+  .btn-3:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn-3:hover{
+    background: transparent;
+    box-shadow: none;
+  }
+  .btn-3:hover:before {
+    height: 100%;
+  }
+  .btn-3:hover:after {
+    width: 100%;
+  }
+  .custom-btn {
+    width: 10%;
+    margin-left: 10px;
+    margin-top: 15px;
+    height: 30px;
+    border: 0;
+    outline: 0;
+    color: white;
+    font-size: 15px;
+    position: relative;
+    z-index: 3;
+    background: #466A8B;
+    font-family: 'Markazi Text', serif;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);}
+</style>
+
+    <div class="border border-light p-2 mb-2 text-center p-4 mt-4"> <h2 style="color: #30334B;" > قائمة تعليقاتي</h2></div>
+  
+
 {% for review in request.user.review_set.all %}
-    <div class="col-4 mt-4">
-        <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between">
+    <div class="row-4 mt-4">
+        <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between bg-secondary bg-opacity-50" >
             <h3>{{ review.company.name }}</h3>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center " >
                 <h6>{{ review.description }}</h6>  
                           
                 <div style="color: #f9c448;">
@@ -36,8 +98,7 @@
                     {% endif %} 
                 </div>
             </div>
-            <a href="{% url 'companies:company_detail_view' review.company.id %}" class="d-flex justify-content-between text-decoration-none">
-                <h5>more</h5>
+                <a href="{% url 'companies:company_detail_view' review.company.id %}" class="btn btn-3 custom-btn page-scroll">المزيد</a>
             </a>
         </div>
     </div>

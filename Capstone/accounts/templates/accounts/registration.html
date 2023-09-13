@@ -20,9 +20,6 @@
   flex-direction: column;
 }
 
-body {
-  direction: rtl;
-}
 
 .form input {
 direction: rtl;
@@ -144,7 +141,7 @@ direction: rtl;
     </div>
     <div class="form form--signup">
       {% if msg %} 
-        <h5 class=" msg text-white bg-danger p-3 .message .button ">{{msgg}}</h5>
+        <h5 class=" msg text-white bg-white p-3 .message .button ">{{msgg}}</h5>
          {% endif %}
       <div class="form--heading">مرحبا! تسجيل مستخدم جديد</div>
       <form action="{% url 'accounts:register_user_view' %}" method="post" >
