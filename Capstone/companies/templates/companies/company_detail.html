@@ -4,6 +4,7 @@
 
 {% block content %}
 {% if "msg" in  request.GET %}
+
 <div class="alert alert-dismissible fade show"
     style="background-color: rgb(92, 84, 112); color:  rgb(250, 240, 230);" role="alert">
     <strong>{{request.GET.msg}}</strong>
@@ -24,9 +25,9 @@
           <p style="font-size: 16px;">الوصف: {{company.description}}</p>
         </div>
         <div class="text-center">
+        {% if request.user.is_staff %}
                   <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
                     {% csrf_token %}
-                    {% if request.user.is_staff %}
                     <a href="{% url 'companies:company_update_view' company.id %}" class="btn" style="background-color: rgb(255, 255, 255); color:rgb(70, 106, 139) ;">تحديث</a>
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
                         style="background-color: rgb(255, 255, 255); color:rgb(70, 106, 139) ;">حذف</button>
@@ -34,10 +35,10 @@
                         {% if company.approved == False %}
                     <button type="submit" name="approved" value=True class="btn"
                       style="background-color: rgb(255, 255, 255); color:rgb(70, 106, 139) ;">توثيق</button>
-                  </form>
-
-                {% endif %}
-        </div>
+                      
+                      {% endif %}
+                    </form>
+                </div>
     </div>
 </div>
 
@@ -94,10 +95,9 @@
   <option value="favorite" > اعلى اعجاب </option>
   <option value="publish_date"> الاحدث</option>
 </select>
-<button type="submit" style="width: auto; background-color: rgb(70, 106, 139); color:rgb(255, 255, 255);" class="btn btn-secondary" >تطبيق التصفية</button>
+<button type="submit" style="width: auto; background-color: rgb(70, 106, 139); color:rgb(255, 255, 255);" class="btn" >تطبيق التصفية</button>
 </div>
 </form>
-<h4>Reviews ( {{ company.review_set.count }} )</h4>
 <div class="mt-4">
   {% for review in reviews %}
   <div class="d-flex flex-column gap-1 border border-1 rounded p-4 mt-3">
