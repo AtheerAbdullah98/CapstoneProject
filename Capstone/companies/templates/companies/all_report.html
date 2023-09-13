@@ -5,16 +5,48 @@
 
 {% block content %}
 
-<div class="row gap-4 m-1">
+<style>
+    body{
+        direction: rtl;
+        background-color: rgb(217,196,170);
+    }
+    .card{
+        margin-top: 25px;
+    }
+    h1,h2,h3,h4,h5,h6,p{
+      color: #30334B;
+    
+    
+    }
+    .btn{
+        border-color: #466A8B;
+      color: #466A8B;
+      text-align: end;
+    }
+    .btn-color{
+        background-color:#466A8B ;
+        border-color: #466A8B;
+      color: white;
+      text-align: end;
+    }
+</style>
+    
+   
+<div class="row">
     {% for report in reports %}
-    <div class="card col-4 mt-4" style="width: 18rem; background-color: rgb(92, 84, 112); color:rgb(250, 240, 230) ;">
-        <div class="card-body">
-            <h5 class="card-title pb-2">{{ report.review.company.name }}</h5>
-            <h5 class="card-title pb-2">{{ report.review.description }}</h5>
-            <p class="card-text"> {{ report.user }}</p>
-            <a href="{% url 'companies:company_detail_view' report.review.company.id %}" class="btn" style="background-color: rgb(250, 240, 230); color:rgb(92, 84, 112) ;">Read more</a>
+    <div class="col">
+        <div class="card mb-3 border border-2 " style="width: 340px;">
+            <div class="card-body ">
+                <h5 class="card-title">اسم الشركة : {{ report.review.company.name }}</h5>
+                <p class="card-text">محتوى التجربة : {{ report.review.description }}</p>
+                <p class="card-text">اسم المبلغ : {{ report.user }}</p>
+                <div  class="text-start">
+                    <a href="{% url 'companies:company_detail_view' report.review.company.id %}" class="btn ">more</a>
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
+<a href="{% url 'companies:dashbord_view' request.user.id %}" class="btn btn-color mt-4 ">Back</a>
 {% endblock %}

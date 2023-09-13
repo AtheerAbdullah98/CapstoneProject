@@ -1,35 +1,48 @@
+
+
+
+
 {% extends 'main/base.html' %}
 
+{% block title %}  لوحه التحكم   {% endblock %}
 
-{% block title %} Dashboard {% endblock %}
 
 {% block content %}
+
 <style>
+
 body{
     direction: rtl;
+  }
+  
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }
-.dashboard {
-  display: grid;
-  grid-template-columns: 300px 1fr 1fr 1fr;
+    .dashboard {
   grid-template-rows: 50% 50%;
-  height: calc(100vh - 110px);
-  margin-top: 20px;
+  height: calc(100vh - 90px);
+  margin-top: 25px;
 }
 .dashboard .main {
   grid-row: 1 / span 2;
   grid-column: 1 / span 1;
+
+  
 }
 .dashboard .description {
-  grid-row: 1 / span 1;
+  grid-row: 1 / span 2;
   grid-column: 2 / span 3;
+
 }
-.dashboard .stat {
-    grid-column: 2 / span 3}
 .dashboard-card {
   background: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  padding: 10px;
-  margin: 10px;
+  padding: 50px;
+  margin: 20px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -55,42 +68,67 @@ body{
   font-size: 16px;
 }
 .dashboard img {
-  border-radius: 50%;
+  margin-top: 10px;
+  border-radius: 10%;
+  margin-bottom: 10px;
  
+}
+
+.dashboard .btn:hover {
+  background: #37B686;
+  opacity: 0.7;
 }
 .main p {
   margin-bottom: 30px;
 }
 
+.material-symbols-outlined{
+  margin-left: 10px;
+ 
+}
+
 </style>
 
-<div class="container">
-  
-    <div class="dashboard">
-        <div class="dashboard-card main">
+      <div class="container">
+        <h2 class="text-center p-4">لوحه التحكم </h2> 
+        <div class="dashboard">
+          <div class="dashboard-card main">
             <div class="dashboard-card-content">
-                <p> {{profile.user.avatar}}</p>
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" alt="" width="100" class="img-circle">
-                <h2>{{profile.user.username}}</h2>
-                <p>{{profile.user.email}}</p>
+             <img src="{{profile.avatar.url}}"width="100" >  
+              <h2>{{profile.user.username}}</h2> 
+              <p>{{profile.about}}</p>
+              <a href="{% url 'accounts:update_profile_page' request.user.id %}"><i class="material-symbols-outlined">Settings</i></a>
+              
+              
             </div>
-        </div>
-        <div class="dashboard-card stat ">
-            <div class="dashboard-card-content">
-              <h3>3,536</h3>
-              <p>contributions</p>
-            </div>
-        </div>
+          </div>
        
-        <div class="dashboard-card description">
-            <div class="dashboard-card-content">
-              <h3>More about Benjamin</h3>
-              <p class="text-justify">
-                I am a full-stack developer with 9 years of experience working in startups.
-              </p>
-            </div>
+          <div class="dashboard-card description">
+              <div class="dashboard-card-content">
+
+                 <nav class="navbar navbar-expand-lg navbar-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                      <ul class="navbar-nav ">
+                        <li class="nav-item">
+                          <a class="nav-link"  href="{% url 'companies:approve_company_view' %}">بلاغات <i class="material-symbols-outlined">Flag</i></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link " href="{% url 'accounts:added_company_list_view' user.id %}">طلبات إضافة شركات<i class="material-symbols-outlined">Domain</i></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+               </div>
+            
+          </div>
+      
         </div>
-    </div>
-</div>
+
+      </div>
+
+
 
 {% endblock %}

@@ -5,30 +5,80 @@
 
 {% block content %}
 
+
+<style>
+    body{
+    direction: rtl;
+    justify-content :end;
+
+  }
+    .container {
+      position: relative;
+      width: 50%;
+      margin: 0px;
+    }
+    
+    .image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: .5s ease;
+      background-color: #008CBA;
+    }
+    
+    .container:hover .overlay {
+      opacity: 1;
+    }
+    
+    .text {
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+</style>
+
 {% if "msg" in  request.GET %}
-<div class="alert alert-dismissible fade show"
-    style="background-color: rgb(92, 84, 112); color:  rgb(250, 240, 230);" role="alert">
+<div class="alert alert-dismissible fade show" role="alert">
     <strong>{{request.GET.msg}}</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}
-<div class="row">
-{% for company in companies %}
-    <div class="col-4 mt-4">
-        <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between">
-            <img src="{{ company.image.url }}" class="rounded-4 object-fit-cover border border-1 " />
-            <h3>{{ company.name }}</h3>
-            <div class="d-flex justify-content-between align-items-center">
-                <h6>{{ company.info }}</h6>             
+<div >
+   
+    <div class="container">
+        <div class="row align-items-end">
+            {% for company in companies %}
+            <div class="col-6">
+                <div class="card mb-3 border border-2 " >
+                    <img src="{{ company.image.url }}" class="img-fluid rounded-start" width="300px"height="100px">
+                    <div class="overlay">
+                        <div class="text">  <a href="{% url 'companies:company_detail_view' company.id %}" class="btn "><h3> {{ company.name }} </h3></a>
+                            <br> {{ company.field }} </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a href="{% url 'companies:company_detail_view' company.id %}" class="d-flex justify-content-between text-decoration-none">
-                <h5>more</h5>
-            </a>
+            {% endfor %}
         </div>
     </div>
-  
 
-{% endfor %}
 </div>
 
 {% endblock %}

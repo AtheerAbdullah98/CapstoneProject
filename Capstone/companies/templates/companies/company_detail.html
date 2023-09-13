@@ -74,17 +74,29 @@
 
 <!--company reviews-->
 <hr />
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      تصفية حسب الخبرة
-  </a>
-  <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?موظف=موظف">موظف</a></li>
-      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?مقابلة=مقابلة">مقابلة</a></li>
-      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?تدريب=تدريب">تدريب</a></li>
-  </ul>
-</li>
+<form action="{% url 'companies:company_detail_view' company.id %}" method="get">
+<div class="row gap-2" dir="rtl">
+  <select class="form-select" style="width: auto;" aria-label="Default select example" name="experience">
+    <option value="all" >  تصفية حسب الخبرة </option>
+    <option value="موظف" >  موظف </option>
+    <option value="مقابلة"> مقابلة </option>
+    <option value="تدريب"> تدريب </option>
+</select>
+<select class="form-select" style="width: auto;" aria-label="Default select example" name="position">
+  <option value="all" >  تصفية حسب المنصب </option>
+  <option value="مهندس برمجيات" > مهندس برمجيات</option>
+  <option value="مدير تسويق"> مدير تسويق</option>
+  <option value="مهندس معماري"> مهندس معماري </option>
+</select>
+<select class="form-select" style="width: auto;" aria-label="Default select example" name="order">
+  <option value="all" >  ترتيب حسب </option>
+  <option value="rating" > اعلى تقييم </option>
+  <option value="favorite" > اعلى اعجاب </option>
+  <option value="publish_date"> الاحدث</option>
+</select>
+<button type="submit" style="width: auto;" class="btn btn-secondary" >تطبيق التصفية</button>
+</div>
+</form>
 <h4>Reviews ( {{ company.review_set.count }} )</h4>
 <div class="mt-4">
   {% for review in reviews %}
