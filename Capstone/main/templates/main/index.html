@@ -232,8 +232,54 @@ body{
     font-size: 90px;
     margin-left: 30% !important;
   }
+.category{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  font-size: 30px;
+  margin-top: 35% !important;
+  row-gap: 25px;
+  background-color:white;
+  border-color: #30334B;
+  box-shadow: #30334B;
+  color: #30334B;
+  transition: all 0.3s ease;
+  border-radius: 3%;
+}
+.category:hover{
+  background-color:#acc8c7a8;
+  color: #fff;
 
+}
+.catgorypage{
+  display: flex;
+  height: 100vh;
+  column-gap: 40px;
 
+}
+.categoryhead{
+  width: 100%;
+  font-size: 45px;
+  margin-top: 20%;
+}
+
+.child {
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    transform-origin: bottom;
+}
+.bounce:hover {
+    animation-name: bounce;
+    animation-timing-function: ease;
+}
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-50px); }
+  100% { transform: translateY(0); }
+}
 </style>
 <script>
   $(function() {
@@ -255,8 +301,7 @@ body{
            <p class="homecontent">   اتخذ قرارات مستنيرة حول أماكن العمل المحتملة </p>
           
           </div>
-
-          <a id="explore" href="#" class="btn btn-3 custom-btn page-scroll ">تصفح الشركات</a>  
+          <a id="explore" href="#catgorypage" class="btn btn-3 custom-btn page-scroll ">تصفح الشركات</a>  
           <a href="#about" class="btn btn-3 custom-btn page-scroll">اعرف اكثر</a>  
           <div class="row">
               </div>
@@ -295,34 +340,66 @@ body{
   </div></div>
 
 </section>
-
-<section class="catgorypage">
-  here category of companies
+<section id="catgorypage">
+ <h2 class="categoryhead">تصنيفات الشركات</h2>
+<div class="catgorypage">
+<a style="text-decoration: none;" href="{% url 'companies:companies_search_view' %}?تقنية=تقنية" >
+<button class="category child bounce">
+  <span style="font-size: 50px;" class="material-symbols-outlined"> database</span>
+  التقنية
+   </button> 
+  </a>
+  <a  style="text-decoration: none;" href="{% url 'companies:companies_search_view' %}?صحي=صحي">
+<button class="category child bounce">
+  <span style="font-size: 50px;" class="material-symbols-outlined">ecg_heart</span>
+  الصحة 
+</button>
+</a>
+<a style="text-decoration: none;" href="{% url 'companies:companies_search_view' %}?الاتصالات=الاتصالات" >
+<button class="category child bounce">
+  <span style="font-size: 50px;" class="material-symbols-outlined">rss_feed</span>
+  الاتصالات 
+</button>
+</a>
+<a style="text-decoration: none;" href="{% url 'companies:companies_search_view' %}?البنوك=البنوك">
+<button class="category child bounce"> 
+   <span style="font-size: 50px;" class="material-symbols-outlined">account_balance</span>
+  البنوك
+</button>
+</a>
+<a style="text-decoration: none;" href="{% url 'companies:all_companies_view'%}">
+<button class="category child bounce"> 
+  <span style="font-size: 50px;" class="material-symbols-outlined">domain</span>
+ كل القطاعات
+</button>
+</a>
+</div>
 </section>
+
 <section id="contact">
-  <h1> Countant us </h1>
+  <h2> تواصل معنا </h2>
   <section class="contact-wrap">
     <form action="" class="contact-form">
       <div class="col-sm-12">
         <div class="input-block">
-          <label for="">Your Name</label>
+          <label for="">اسمك</label>
           <input type="text" class="form-control">
         </div>
       </div>
       <div class="col-sm-12">
         <div class="input-block">
-          <label for="">Email</label>
+          <label for="">البريد الالكتروني</label>
           <input type="text" class="form-control">
         </div>
       </div>
       <div class="col-sm-12">
         <div class="input-block textarea">
-          <label for="">Drop your message here</label>
+          <label for="">ملاحظاتك</label>
           <textarea rows="3" type="text" class="form-control"></textarea>
         </div>
       </div>
       <div class="col-sm-12">
-        <button class="square-button">Send</button>
+        <button class="square-button">إرسال</button>
       </div>
     </form>
   </section>
