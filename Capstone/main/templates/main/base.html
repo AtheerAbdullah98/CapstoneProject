@@ -15,54 +15,61 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+        
     </head>
-  <style>
+    <style>
     body{
-      background-image: linear-gradient(to right,#466A8B ,#AD9E8E);
-
-    }
+      background-image: linear-gradient(to right,#466A8B ,#AD9E8E);}
     .navbar{
-      height: 90px;
+      height: 96px;
       background-color: transparent;
       border: black;
+      transition: background-color 0.3s;
     }
     #navbarsExample09{
-    color: rgb(8, 10, 12);
-    direction: rtl;
-    font-size: 34px;
+      color: rgb(8, 10, 12);
+      direction: rtl;
+      font-size: 34px;
+    }
+    .navbar.scrolled {
+      background-image: linear-gradient(to right,#466a8ba6 ,#ad9e8e91);
+      border: 2px solid #c5ab9056; /* Add a 2px solid border with your desired color (#333 in this example) */
     }
     .nav-link{
       color: aliceblue;
     }  
-  .nav-link:hover{
-    color: #C49D78;
-    border-radius: 3%;
-  }
- .form-control{
-opacity: .6; }
-  </style>
-  <script>
-    
-$(document).ready(function(){
-  $(window).scroll(function(){
-  	var scroll = $(window).scrollTop();
-	  if (scroll > 300) {
-	    $(".navbar").css("background" , "blue");
-	  }
+    .nav-link:hover{
+      color: #C49D78;
+      border-radius: 3%;
+    }
+    .nav-link::after{
+      color: #C49D78;
+      border-radius: 3%;
+    }
+    .form-control{
+      opacity: .6; }
+    .dropdown-menu{
+      background-color: #acc8c7c2;
+      font-size: 18px;
+      font-weight: 600;
 
-	  else{
-		  $(".navbar").css("background" , "#333");  	
-	  }
-  })
-})
-  </script>
-        <nav class="navbar sticky-top navbar-expand-lg" aria-label="Eleventh navbar example">
+    }
+    .search{
+    background-image: url('/static/images/search.png');
+    background-repeat: no-repeat;
+    background-position: left center; /* Position the icon on the right */
+}
+.dropdown.clicked{
+  color: #466A8B;
+}
+    </style>
+ 
+        <nav class="navbar sticky-top navbar-expand-lg scroll" aria-label="Eleventh navbar example">
             <div class="container">
-              <a class="navbar-brand" style="color: aliceblue; font-size: 30px;" href="/"> <img src="{% static 'images/Removal-575.png' %}" style="height: 300px; height:130px;"></a>
+              <a class="navbar-brand" style="color: aliceblue; font-size: 30px;" href="/"> <img src="{% static 'images/Removal-575.png' %}" style=" height:110px; margin-top: 7px;"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-      
               <div class="collapse navbar-collapse" id="navbarsExample09">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
@@ -71,21 +78,17 @@ $(document).ready(function(){
                   <li class="nav-item">
                     <a class="nav-link " href="#about">عنا </a>
                   </li>
-                  {% if request.user.is_authenticated %}
-                  <li class="nav-item">
-                    <a class="nav-link " href="{% url 'companies:add_company_view' %}"> اضافة</a>
-                  </li> {%endif%}
                   <li class="nav-item">
                     <a class="nav-link " href="{% url 'companies:all_companies_view'%}">  الشركات</a>
                   </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                  
+                  <li class="nav-item dropdown " >
+                    <a class="nav-link " href="#" data-bs-toggle="dropdown" aria-expanded="false">
                       {% if request.user.is_authenticated %}
                         <img src="{{ request.user.profile.avatar.url }}" alt="avatar" width="32" height="32" class="avatar rounded-circle">
-                        {{ request.user.first_name }} 
-                      {% else %} <span class="material-symbols-outlined">
-                        account_circle
-                        </span> {% endif %} 
+                        {{ request.user.first_name }} <span class="material-symbols-outlined" style="align-items: center;font-size: large;">menu</span>
+                      {% else %} 
+                      <span class="material-symbols-outlined">account_circle</span> {% endif %} 
                     </a>
                     <ul class="dropdown-menu">
                       
@@ -93,12 +96,21 @@ $(document).ready(function(){
                           <li><a class="dropdown-item" href="{% url 'companies:dashbord_view' request.user.id %}">لوحه التحكم</a></li>
                           <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">تسجيل الخروج</a></li>
                       {% endif %}
-                      {% if request.user.is_authenticated and not request.user.is_staff  %}
-                        <li><a class="dropdown-item" href="{% url 'accounts:profile_page' request.user.id %}">المللف الشخصي</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:update_profile_page' request.user.id %}">تعديل معلوماتي</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">تسجيل الخروج</a></li>
-                      {% elif not request.user.is_authenticated and not request.user.is_staff  %}
-                      <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">التسجيل</a></li> 
+                      {% if request.user.is_authenticated %}
+                      
+                        <li><a class="dropdown-item" href="{% url 'accounts:profile_page' request.user.id %}">الملف الشخصي <span class="material-symbols-outlined">account_circle</span></a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'accounts:update_profile_page' request.user.id %}">تعديل معلوماتي <span class="  fa-fw material-symbols-outlined">
+                          settings
+                          </span></a></li>
+                        <li><a class="dropdown-item" href="{% url 'companies:add_company_view' %}"> اضافة شركة<span class="material-symbols-outlined">
+                          edit_note
+                          </span></a></li> 
+                        <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">تسجيل الخروج <span class="material-symbols-outlined">
+                          logout
+                          </span></a></li>
+                      {% else %} 
+                      <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">تسجيل او تسجيل الدخول</a></li> 
                       {% endif %}              
               
 
@@ -106,7 +118,7 @@ $(document).ready(function(){
                   </li>
                 </ul>
                 <form role="search" action="{% url 'companies:companies_search_view' %}" method="get">
-                  <input name="search" class="form-control" type="search" placeholder="  بحث" aria-label="Search">
+                <input  name="search" class="form-control search" aria-hidden="true" type="search" placeholder="  اسم الشركة.. " aria-label="Search">
                 </form>
 
               </div>
@@ -137,5 +149,28 @@ $(document).ready(function(){
         </div>
     
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-</html>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <script src="main.js"></script>
+        <script>
+    
+          const navbar = document.querySelector('.navbar');
+          
+          // Function to handle the scroll event
+          function handleScroll() {
+              if (window.scrollY > 100) {
+                  // Add the "scrolled" class to the navbar when scrolling down
+                  navbar.classList.add('scrolled');
+              } else {
+                  // Remove the "scrolled" class when at the top of the page
+                  navbar.classList.remove('scrolled');
+              }
+          }
+          
+          // Attach the scroll event listener
+          window.addEventListener('scroll', handleScroll);
+          
+            </script>
+      </body>
+        </html>
 
