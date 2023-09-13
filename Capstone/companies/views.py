@@ -18,13 +18,13 @@ def add_company_view(request: HttpRequest):
             if request.user.is_staff:  
                 new_company = Company(user=request.user,name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"],approved=True)
                 new_company.save()
-                msg='Company added'
+                msg='تم إضافة الشركة'
                 url = resolve_url("companies:all_companies_view") + "?msg=" + msg
                 return redirect(url)
             else:
                 new_company = Company(user=request.user,name=request.POST["name"], field=request.POST["field"],info=request.POST["info"], description=request.POST["description"],image=request.FILES["image"])
                 new_company.save()
-                msg='Company request added'
+                msg='تم طلب إضافة شركة'
                 url = resolve_url("companies:all_companies_view") + "?msg=" + msg
                 return redirect(url)
 
@@ -177,7 +177,7 @@ def company_detail_view(request: HttpRequest, company_id):
                     return redirect("accounts:login_user_view")
                 company.approved = request.POST["approved"]
                 company.save()
-                msg='company approved'
+                msg='تم الإضافة'
                 return redirect("companies:all_companies_view")
         
         return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
@@ -312,13 +312,13 @@ def report_view(request: HttpRequest, review_id):
         review = Review.objects.get(id=review_id)
         company_id= review.company.id
         if Report.objects.filter(user=request.user, review=review).exists():
-            msg='Already reported'
+            msg='تم الإبلاغ مسبقاٌ'
             url = resolve_url("companies:company_detail_view" ,company_id) + "?msg=" + msg
             return redirect(url)
         if not Report.objects.filter(user=request.user, review=review).exists():
             new_report = Report(user=request.user, review=review)
             new_report.save()
-            msg='Reported'
+            msg='تم الإبلاغ'
             url = resolve_url("companies:company_detail_view" ,company_id) + "?msg=" + msg
             return redirect(url)
         return redirect("companies:company_detail_view", company_id= company_id) 
