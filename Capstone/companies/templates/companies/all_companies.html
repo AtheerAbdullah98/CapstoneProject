@@ -5,59 +5,71 @@
 
 {% block content %}
 
-
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 <style>
     body{
-    direction: rtl;
-    justify-content :end;
-
-  }
-    .container {
-      position: relative;
-      margin: 0px;
-      margin-top: 35px;
+        direction: rtl;
+        justify-content :end;
+        font-family: 'Markazi Text', serif !important;
+         }
+    .con {
+        position: relative;
+        margin: 0px;
+        margin-top: 35px;
     }
-   
-    .card-img{
-        
+    .card-img{  
        display: flex;
        width: 100% !important;
        height: auto !important;
     }
     .overlay {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      opacity: 0;
-      transition: .5s ease;
-      
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transition: .5s ease; 
+        color: rgb(6, 26, 44);
     }
-    .col{
-        background: transparent;
-    }
-    
-    .container .overlay:hover {
-        background-color: #008CBA;
-      opacity: 0.6;
-    }
-    
-    .text {
-      color: white;
-      font-size: 20px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-</style>
 
+    .con .overlay:hover {
+         background-color: #d3cec4a2;
+         opacity: 1;
+         color: rgb(6, 26, 44);
+    }
+  
+    .text {
+        color: white;
+        font-size: 30px;
+        font-weight: 700;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-family: 'Markazi Text', serif !important;
+        color: rgb(7, 20, 77);
+
+        }
+    .head{
+        margin-right: 40%;
+        margin-bottom: 8%;
+        font-size: 39px;
+        font-weight: 600;
+        color: rgb(7, 20, 77);
+    }
+   
+</style>
+<div class="all">
+<h2 class="head animate__shakeY animate__animated">جميع الشركات</h2>
 {% if "msg" in  request.GET %}
 <div class="alert alert-dismissible fade show" role="alert">
     <strong>{{request.GET.msg}}</strong>
@@ -66,15 +78,18 @@
 {% endif %}
 <div >
    
-    <div class="container">
+    <div class="con">
         <div class="row align-items-end row-cols-2 row-cols-md-3 g-4">
             {% for company in companies %}
             <div class="col-sm-3 mb-3 mb-sm-0 ml-3">
-                <div class="card mb-3 border border-2  "  >
-                    <img src="{{ company.image.url }}" class="card-img  rounded-start" style="width:100%;" >
-                    <div class="overlay">
-                        <div class="text">  <a href="{% url 'companies:company_detail_view' company.id %}" class="btn "><h3> {{ company.name }} </h3></a>
-                            <br> {{ company.field }} </p>
+                <div class="card mb-3 border border-2 ">
+                    <img src="{{ company.image.url }}" class="card-img  rounded-start" style="width:100%; height: 50%;" >
+                    <a href="{% url 'companies:company_detail_view' company.id %}" class="btn ">
+                    <div class="overlay middle" >
+                        <div class="text">  
+                            <h3 style="font-size: 43px;"> {{ company.name }} </h3>
+                            <p style="font-size: 33px;"> {{ company.field }} </p>
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -84,5 +99,5 @@
     </div>
 
 </div>
-
+</div>
 {% endblock %}

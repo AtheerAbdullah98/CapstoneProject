@@ -22,6 +22,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 body{
     font-family: 'Markazi Text', serif;
     background-color:#e8e8e8;
+    
 
    }
       @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900);
@@ -282,7 +283,11 @@ body{
   100% { transform: translateY(0); }
 }
 .input-block{
-  direction:rtl;
+  justify-content: start;
+  
+}
+label{
+  justify-content: start;
 }
 </style>
 
@@ -371,12 +376,12 @@ body{
 </section>
 
 <section id="contact">
-  <h2> تواصل معنا </h2>
+  <h2 > تواصل معنا </h2>
   <section class="contact-wrap">
     <form action="" class="contact-form">
       <div class="col-sm-12">
         <div class="input-block">
-          <label for="">اسمك</label>
+          <label for="" aria-placeholder="">اسمك</label>
           <input type="text" class="form-control">
         </div>
       </div>
