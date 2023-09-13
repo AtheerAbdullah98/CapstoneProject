@@ -263,7 +263,8 @@ body{
 .categoryhead{
   width: 100%;
   font-size: 45px;
-  margin-top: 20%;
+  margin-top: 30%;
+  font: 700;
 }
 
 .child {
@@ -280,18 +281,11 @@ body{
   50%  { transform: translateY(-50px); }
   100% { transform: translateY(0); }
 }
+.input-block{
+  direction:rtl;
+}
 </style>
-<script>
-  $(function() {
-    $('a.page-scroll').bind('click', function(event) {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
-        }, 1500, 'easeInOutExpo');
-        event.preventDefault();
-    });
-});
-</script>
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <section  id="homepage" >
 <div class="row pt-4 homepage">
@@ -302,7 +296,7 @@ body{
           
           </div>
           <a id="explore" href="#catgorypage" class="btn btn-3 custom-btn page-scroll ">تصفح الشركات</a>  
-          <a href="#about" class="btn btn-3 custom-btn page-scroll">اعرف اكثر</a>  
+          <a href="#categoryhead"  class="btn btn-3 custom-btn page-scroll ">اعرف اكثر</a>  
           <div class="row">
               </div>
         </div>
@@ -341,7 +335,7 @@ body{
 
 </section>
 <section id="catgorypage">
- <h2 class="categoryhead">تصنيفات الشركات</h2>
+ <h2 id="categoryhead" class="categoryhead">تصنيفات الشركات</h2>
 <div class="catgorypage">
 <a style="text-decoration: none;" href="{% url 'companies:companies_search_view' %}?تقنية=تقنية" >
 <button class="category child bounce">
@@ -408,7 +402,23 @@ body{
 </section>
   
   
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+          e.preventDefault();
 
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+
+          if (targetElement) {
+              targetElement.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+              });
+          }
+      });
+  });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{% static 'styles/index.js' %}" ></script>
 

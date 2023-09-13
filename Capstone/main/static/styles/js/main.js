@@ -14,4 +14,3 @@ $("#signup").click(function() {
     $(".message").addClass("login");
   });
 
-  
