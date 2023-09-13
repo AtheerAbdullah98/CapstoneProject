@@ -15,15 +15,3 @@ Team Members:
 -	Renad Nasser Alnasser
 
 ===================================================================
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-<span class="material-symbols-outlined">
-account_circle
-</span>
-
-Color: 
-#D9C4AA
-#AD9E8E
-#466A8B
-#30334B
-#C49D78
