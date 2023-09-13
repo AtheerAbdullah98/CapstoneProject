@@ -31,22 +31,24 @@
 }
 </style>
     
-   
-<div class="row">
-    {% for report in reports %}
-    <div class="col">
-        <div class="card mb-3 border border-2 " style="width: 340px;">
-            <div class="card-body ">
-                <h5 class="card-title">اسم الشركة : {{ report.review.company.name }}</h5>
-                <p class="card-text">محتوى التجربة : {{ report.review.description }}</p>
-                <p class="card-text">اسم المبلغ : {{ report.user }}</p>
-                <div  class="text-start">
-                    <a href="{% url 'companies:company_detail_view' report.review.company.id %}" class="btn ">more</a>
+ <div class="container">
+    <div class="row align-items-end row-cols-2 row-cols-md-3 g-4">
+        {% for report in reports %}
+        <div class="col-sm-3 mb-3 mb-sm-0 ml-3">
+            <div class="card mb-3 border border-2  "  >
+                <div class="overlay">
+                    <h5 class="card-title">اسم الشركة : {{ report.review.company.name }}</h5>
+                    <p class="card-text">محتوى التجربة : {{ report.review.description }}</p>
+                    <p class="card-text">اسم المبلغ : {{ report.user }}</p>
+                    <div  class="text-start">
+                        <a href="{% url 'companies:company_detail_view' report.review.company.id %}" class="btn ">المريد</a>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
-<a href="{% url 'companies:dashbord_view' request.user.id %}" class="btn btn-color mt-4 ">Back</a>
+
+<a href="{% url 'companies:dashbord_view' request.user.id %}" class="btn btn-color mt-4 ">سابق</a>
 {% endblock %}
