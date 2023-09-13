@@ -13,6 +13,7 @@
 .message,
 .container-signup .form,
 .container-signup form {
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,14 +21,21 @@
 }
 
 body {
+  
   min-height: 100vh;
   background: #e8e8e8;
   font-family: "Source Sans Pro", sans-serif;
   overflow: hidden;
+  
+}
+
+.form input {
+direction: rtl;
 }
 
 
 .container-signup {
+  margin-top: 10%;
   width: 100%;
   height: 400px;
   background: white;
@@ -135,36 +143,36 @@ body {
 <div class="container-signup">
     <div class="message signup">
       <div class="btn-wrapper">
-        <button class="button" id="signup">Sign Up</button>
-        <button class="button" id="login"> Login</button>
+        <button class="button" id="signup">التسجيل  </button>
+        <button class="button" id="login"> تسجيل الدخول</button>
       </div>
     </div>
     <div class="form form--signup">
       {% if msg %} 
         <h5 class=" msg text-white bg-danger p-3 .message .button ">{{msgg}}</h5>
          {% endif %}
-      <div class="form--heading">Welcome! Sign Up</div>
+      <div class="form--heading">مرحبا! تسجيل مستخدم جديد</div>
       <form action="{% url 'accounts:register_user_view' %}" method="post" >
         {% csrf_token %}
-        <input type="text" name="first_name" class="form-control mt-2" placeholder="First Name" />
-        <input type="text" name="last_name" class="form-control mt-2" placeholder="Last Name" />
-        <input type="text" name="username" class="form-control mt-2" placeholder="User Name" />
-        <input type="email" name="email" class="form-control mt-2" placeholder="Email Address" />
-        <input type="password" name="password" class="form-control mt-2" placeholder="Password" />
-        <button class="button" type="submit" value="Register" >Sign Up</button>
+        <input type="text" name="first_name" class="form-control mt-2" placeholder="الاسم الاول" />
+        <input type="text" name="last_name" class="form-control mt-2" placeholder="الاسم الاخير" />
+        <input type="text" name="username" class="form-control mt-2" placeholder="اسم المستخدم" />
+        <input type="email" name="email" class="form-control mt-2" placeholder="البريد الالكتروني" />
+        <input type="password" name="password" class="form-control mt-2" placeholder="رمز المرور" />
+        <button class="button" type="submit" value="Register" >تسجيل</button>
       </form>
     </div>
     <div class="form form--login">
         {% if msg %} 
         <h5 class=" msg text-white bg-danger p-3 .message .button ">{{msg}}</h5>
          {% endif %}
-      <div class="form--heading">Welcome back! </div>
+      <div class="form--heading">مرحبا بعودتك! </div>
     
       <form action="{% url 'accounts:login_user_view' %}" method="post" >
         {% csrf_token %}
-        <input type="text" name="username" class="form-control mt-2" placeholder="User Name" />
-        <input type="password" name="password" class="form-control mt-2" placeholder="Password" />
-        <button class="button" value="Login " type="submit">Login</button>
+        <input type="text" name="username" class="form-control mt-2" placeholder="اسم المستخدم" />
+        <input type="password" name="password" class="form-control mt-2" placeholder="رمز المرور" />
+        <button class="button" value="Login " type="submit">دخول</button>
       </form>
     </div>
 
