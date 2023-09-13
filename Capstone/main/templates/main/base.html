@@ -72,13 +72,14 @@ opacity: .6; }
                       
                       {% if request.user.is_staff %}
                           <li><a class="dropdown-item" href="{% url 'companies:dashbord_view' request.user.id %}">لوحه التحكم</a></li>
+                          <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">تسجيل الخروج</a></li>
                       {% endif %}
                       {% if request.user.is_authenticated and not request.user.is_staff  %}
                         <li><a class="dropdown-item" href="{% url 'accounts:profile_page' request.user.id %}">المللف الشخصي</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:update_profile_page' request.user.id %}">تعديل معلوماتي</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">تسجيل الخروج</a></li>
-                      {% else %} 
-                      <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">تسجيل او تسجيل الدخول</a></li> 
+                      {% elif not request.user.is_authenticated and not request.user.is_staff  %}
+                      <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">التسجيل</a></li> 
                       {% endif %}              
               
 
@@ -86,7 +87,7 @@ opacity: .6; }
                   </li>
                 </ul>
                 <form role="search" action="{% url 'companies:companies_search_view' %}" method="get">
-                  <input name="search" class="form-control" type="search" placeholder="  اسم الشركة" aria-label="Search">
+                  <input name="search" class="form-control" type="search" placeholder="  بحث" aria-label="Search">
                 </form>
 
               </div>
@@ -104,13 +105,13 @@ opacity: .6; }
         <div class="container pt-5">
           <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-              <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
-              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-              <li class="nav-item"><a href="/about/" class="nav-link px-2 text-body-secondary">About</a></li>
+              <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">الرئيسية</a></li>
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary"> سياسة الخصوصية</a></li>
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">شروط الاستخدام</a></li>
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">الأسئلة الشائعة</a></li>
+              <li class="nav-item"><a href="#about" class="nav-link px-2 text-body-secondary">عننا</a></li>
             </ul>
-            <p class="text-center text-body-secondary">© 2023 capstone, Inc</p>
+            <p class="text-center text-body-secondary"> مرآه وظيفتي © 2023 </p>
           </footer>
         </div>
     
