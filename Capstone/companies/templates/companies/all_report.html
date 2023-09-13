@@ -35,14 +35,12 @@
     <div class="row align-items-end row-cols-2 row-cols-md-3 g-4">
         {% for report in reports %}
         <div class="col-sm-3 mb-3 mb-sm-0 ml-3">
-            <div class="card mb-3 border border-2  "  >
-                <div class="overlay">
-                    <h5 class="card-title">اسم الشركة : {{ report.review.company.name }}</h5>
-                    <p class="card-text">محتوى التجربة : {{ report.review.description }}</p>
-                    <p class="card-text">اسم المبلغ : {{ report.user }}</p>
-                    <div  class="text-start">
-                        <a href="{% url 'companies:company_detail_view' report.review.company.id %}" class="btn ">المريد</a>
-                    </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">اسم الشركة : {{ report.review.company.name }}</h5>
+                  <p class="card-text">>محتوى التجربة : {{ report.review.description }}</p>
+                  <p class="card-text">اسم المبلغ : {{ report.user }}</p>
+                  <a href="{% url 'companies:company_detail_view' report.review.company.id %}" class="btn ">المريد</a>
                 </div>
             </div>
         </div>
