@@ -16,16 +16,16 @@ body{
   height: calc(100vh - 110px);
   margin-top: 15%;
   justify-content: space-between;
+  padding-top: 10px;
 }
 .dashboard .main {
   grid-row: 1 / span 1;
  
 }
-.dashboard .description {
-    grid-row: 1 / span 1;
-}
+
 .dashboard .stat {
     grid-row: 1 / span 1;
+    grid-column: 2 / span 3;
 }
 .dashboard-card {
   background: white;
@@ -70,34 +70,45 @@ body{
     border-color: #466A8B;
   color: #466A8B;
 }
-
+.header{
+  padding-top: 35px;
+}
 
 </style>
 
 <div class="container justify-content-center">
-  
-    <div class="dashboard">
-        <div class="dashboard-card main">
-            <div class="dashboard-card-content">
-                <p> add pro logo</p>
-                <h2>اسم المستخدم : {{profile.user.username}}</h2>
-                <p>ايميل المستخدم : {{profile.user.email}}</p>
-            </div>
-        </div>
-        <div class="dashboard-card stat ">
-            <div class="dashboard-card-content">
-                <h3 class="text-center">طلبات إضافة شركات</h3>
-                <a  href="{% url 'companies:approve_company_view' %}" class="btn ">شركات بالانتظار الاضافة</a>
-              </div>
-        </div>
-       
-        <div class="dashboard-card description">
-            <div class="dashboard-card-content">
-              <h3 class="text-center"> بلاغات </h3>
-              <a  href="{% url 'companies:all_report_view' %}" class="btn " >بلاغات المستخدمين  </a>
-            </div>
-        </div>
+  <div class="header">
+    <h1 > لوحة التحكم </h1>
+  </div>
+  <div class="dashboard pt-1">
+    <div class="dashboard-card main">
+      <div class="dashboard-card-content">
+        <img src="{{profile.avatar.url}}"width="100" >
+        <h2>اسم المستخدم : {{profile.user.username}}</h2>
+        <p>ايميل المستخدم : {{profile.user.email}}</p>
+      </div>
     </div>
+    <div class="dashboard-card stat ">
+      <div class="row ms-5">
+        <div class="col">
+          <div class="dashboard-card-content">
+            <h3 class="text-center">طلبات إضافة شركات <i class="material-symbols-outlined">Domain</i></h3>
+            <a  href="{% url 'companies:approve_company_view' %}" class="btn ">شركات بالانتظار الاضافة</a>
+          </div>
+        </div>
+      </div>
+      <div class="row me-5 ">
+        <div class="col">
+          <div class="dashboard-card-content">
+            <h3 class="text-center"> بلاغات  <i class="material-symbols-outlined">Flag</i></h3>
+            <a  href="{% url 'companies:all_report_view' %}" class="btn " >  بلاغات المستخدمين  </a>
+          </div>
+        </div>
+      </div>
+    </div>
+       
+       
+  </div>
 </div>
 
 {% endblock %}
