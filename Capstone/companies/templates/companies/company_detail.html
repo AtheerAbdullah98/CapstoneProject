@@ -10,41 +10,41 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}
-<div class="d-flex flex-column gap-2">
-  <h1>{{ company.name }}</h1>
-  <div class="d-flex justify-content-end">
 
-    {% if request.user.is_staff %}
-    <div>
-      <a href="{% url 'companies:company_update_view' company.id %}" class="btn btn-warning">Update</a>
-      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+  <!-- d -->
+  <div class="row  d-flex flex-column align-items-center justify-content-center pt-5 pb-4"
+    style="background-color: rgb(70, 106, 139); box-shadow: 0 6px 12px rgb(185, 180, 199); color:rgb(255, 255, 255) ;">
+    <div class="col-10">
+        <h3 class="text-center">{{ company.name }}</h3>
+        <hr />
+        <div class="row">
+          <div class="col-4 border border-2"><img src="{{ company.image.url }}" class="rounded-4 w-100" /></div>
+          <div class="col-4">
+          <p style="font-size: 24px;"> مجال الشركة: {{company.field}} </p>
+          <p style="font-size: 16px;">الوصف: {{company.description}}</p>
+        </div>
+        <div class="text-center">
+                  <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
+                    {% csrf_token %}
+                    {% if request.user.is_staff %}
+                    <a href="{% url 'companies:company_update_view' company.id %}" class="btn" style="background-color: rgb(255, 255, 255); color:rgb(70, 106, 139) ;">تحديث</a>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                        style="background-color: rgb(255, 255, 255); color:rgb(70, 106, 139) ;">حذف</button>
+                        {% endif %}
+                        {% if company.approved == False %}
+                    <button type="submit" name="approved" value=True class="btn"
+                      style="background-color: rgb(255, 255, 255); color:rgb(70, 106, 139) ;">توثيق</button>
+                  </form>
+
+                {% endif %}
+        </div>
     </div>
-    {% endif %}
-    {% if company.approved == False %}
-    <div>
-      <form action="{% url 'companies:company_detail_view' company.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit" name="approved" value=True class="btn"
-          style="background-color: rgb(250, 240, 230); color:rgb(92, 84, 112) ;">Approve</button>
-      </form>
-    </div>
-    {% endif %}
+</div>
 
-  </div>
+  <!-- d -->
 
-  <div class="row">
-    <div class="col-4"><img src="{{ company.image.url }}" class="rounded-4 w-100" /></div>
-    <div class="col">
-      <div>
-        <h3>{{company.info}}</h3>
-        <p>{{ field.description }}</p>
-        <p>{{ company.description }}</p>
 
-      </div>
-    </div>
-  </div>
 
-  <hr />
 
 
 </div>
@@ -94,14 +94,14 @@
   <option value="favorite" > اعلى اعجاب </option>
   <option value="publish_date"> الاحدث</option>
 </select>
-<button type="submit" style="width: auto;" class="btn btn-secondary" >تطبيق التصفية</button>
+<button type="submit" style="width: auto; background-color: rgb(70, 106, 139); color:rgb(255, 255, 255);" class="btn btn-secondary" >تطبيق التصفية</button>
 </div>
 </form>
 <h4>Reviews ( {{ company.review_set.count }} )</h4>
 <div class="mt-4">
   {% for review in reviews %}
   <div class="d-flex flex-column gap-1 border border-1 rounded p-4 mt-3">
-    <h4>{{review.user.first_name}}</h4>
+    <h4>{{review.user.username}}</h4>
     <h6><a
         href="{% if review.is_favored  %}{% url 'companies:remove_favorite_view' review.id  %}{% else %}{% url 'companies:add_favorite_view' review.id  %}{% endif %}"
         class="{% if review.is_favored %} text-danger {% endif%}"><span class="material-symbols-outlined">favorite </span></a> {{ review.favorite_set.count }}

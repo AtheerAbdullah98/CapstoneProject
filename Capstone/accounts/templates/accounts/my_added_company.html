@@ -4,22 +4,69 @@
 {% block title %} {{profile.user.username}} profile {% endblock %}
 
 {% block content %}
+
+<style>
+
+body{
+    direction: rtl;
+    }
+h1{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    color: #30334B;
+}
+table th{
+    color:#C49D78 ;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+    
+</style>
+
+
 {% if "msg" in  request.GET %}
-<div class="alert alert-dismissible fade show"
-    style="background-color: rgb(92, 84, 112); color:  rgb(250, 240, 230);" role="alert">
     <strong>{{request.GET.msg}}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
 {% endif %}
-{% for company  in request.user.company_set.all %}
-    <div>
-        <h2>{{ company.name }}</h2>
-        {% if company.approved %}
-            <p>Status: Approved</p>
-        {% else %}
-            <p>Status: Pending Approval</p>
-        {% endif %}
-    </div>
-{% endfor %}
+        <h1 class=" text-center">الشركات المضافة</h1>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"> </th>
+                    <th scope="col">اسم الشركة</th>
+                    <th scope="col">مجالها</th>
+                    <th scope="col">الحاله</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                
+                {% for company  in request.user.company_set.all %}
+        <tr>
+            <th scope="row">-
+            <td>{{ company.name }}</td>
+            <td>{{ company.info }}</td>
+            <td> {% if company.approved %}
+                <p> <i class="material-symbols-outlined text-success">Circle</i> مقبول  </p>
+            {% else %}
+                <p> <i class="material-symbols-outlined text-danger">Circle</i> بالإنتظار  </p>
+            {% endif %}</td></th>
+
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table>
 
 {% endblock %}
+
+
+
+
+

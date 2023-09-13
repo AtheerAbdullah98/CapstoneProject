@@ -14,6 +14,8 @@ def about_view(request: HttpRequest):
 
     return render(request, "main/about.html")
 
+def not_found_view(request: HttpRequest):
 
+    return render(request, "main/about.html")
 
 
