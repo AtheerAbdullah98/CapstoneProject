@@ -23,6 +23,12 @@
       color: #466A8B;
       text-align: end;
     }
+    .btn-color{
+        background-color:#466A8B ;
+        border-color: #466A8B;
+      color: white;
+      text-align: end;
+    }
 </style>
     
    
@@ -42,4 +48,5 @@
     </div>
     {% endfor %}
 </div>
+<a href="{% url 'companies:dashbord_view' request.user.id %}" class="btn btn-color mt-4 ">Back</a>
 {% endblock %}
