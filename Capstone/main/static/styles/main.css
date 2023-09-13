@@ -1,5 +1,7 @@
 body{
   direction: rtl;
+  background-color:#e8e8e8;
+  
 }
 .navbar{
   background-color:#30334B ;
@@ -301,6 +303,8 @@ body{
 
   body{
     font-family: 'Markazi Text', serif;
+    background-color:#e8e8e8;
+
    }
       @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900);
       .contact-form {
@@ -393,6 +397,8 @@ body{
       /*----page styles---*/
       body {
         background-color: rgb(217, 196, 170);
+        background-color:#e8e8e8;
+
       }
       .contact-wrap {
         padding: 15px;
@@ -489,15 +495,20 @@ body{
    }
    #about{
     height:100vh;
-    background-color: #C49D78;
+    background-color: #d9c4aa60;
+    width: 100%;
+    border-radius: 3%;
     padding: 30px;
    }
   .abouthome{
-    width: 50%;
+    width: 40%;
   }
   .aboutcontent{
-    font-size: 30px;
+    font-size: 27px;
     font-weight: 600;
+    height: auto;
+    width: 100%;
+
   }
   #who{
     font-size: 90px;

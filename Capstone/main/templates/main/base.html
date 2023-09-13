@@ -18,15 +18,28 @@
     </head>
   <style>
     .navbar{
-      height: 100px;
+      height: 90px;
+      background-color: transparent;
+      border: black;
     }
     #navbarsExample09{
-    color: aliceblue;
+    color: rgb(8, 10, 12);
+    direction: rtl;
+    font-size: 34px;
     }
+    .nav-link{
+      color: aliceblue;
+    }  
+  .nav-link:hover{
+color: #C49D78;
+    border-radius: 3%;
+  }
+ .form-control{
+opacity: .6; }
   </style>
         <nav class="navbar sticky-top navbar-expand-lg" aria-label="Eleventh navbar example">
             <div class="container">
-              <a class="navbar-brand" style="color: aliceblue; font-size: 30px;" href="/">مراَة وظيفتي</a>
+              <a class="navbar-brand" style="color: aliceblue; font-size: 30px;" href="/"> <img src="{% static 'images/Removal-575.png' %}" style="height: 300px; height:130px;"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -34,16 +47,17 @@
               <div class="collapse navbar-collapse" id="navbarsExample09">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class=" btn " aria-current="page" href="{% url 'main:home_view' %}">الرئيسية</a>
+                    <a class=" nav-link " aria-current="page" href="{% url 'main:home_view' %}">الرئيسية</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">الشركات</a>
+                    <a class="nav-link " href="#about">عنا </a>
                   </li>
+                  {% if request.user.is_authenticated %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'companies:add_company_view' %}">اضف شركة</a>
-                  </li>
+                    <a class="nav-link " href="{% url 'companies:add_company_view' %}"> اضافة</a>
+                  </li> {%endif%}
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'companies:all_companies_view'%}">كل الشركات </a>
+                    <a class="nav-link " href="{% url 'companies:all_companies_view'%}">  الشركات</a>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,7 +86,7 @@
                   </li>
                 </ul>
                 <form role="search" action="{% url 'companies:companies_search_view' %}" method="get">
-                  <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                  <input name="search" class="form-control" type="search" placeholder="  اسم الشركة" aria-label="Search">
                 </form>
 
               </div>
