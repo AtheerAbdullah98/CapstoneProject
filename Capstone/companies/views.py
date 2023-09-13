@@ -101,7 +101,7 @@ def all_companies_view(request: HttpRequest):
 
 
 def company_detail_view(request: HttpRequest, company_id):
-    # try:     
+    try:     
         company = Company.objects.get(id=company_id)
         reviews = Review.objects.filter(company=company)  
         # filter reviews
@@ -181,8 +181,8 @@ def company_detail_view(request: HttpRequest, company_id):
                 return redirect("companies:all_companies_view")
         
         return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
-    # except:
-    #     return redirect("main:not_found_view")
+    except:
+        return redirect("main:not_found_view")
 
 def companies_search_view(request: HttpRequest):
 
