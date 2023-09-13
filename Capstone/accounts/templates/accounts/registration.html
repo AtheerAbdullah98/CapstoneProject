@@ -20,6 +20,9 @@
   flex-direction: column;
 }
 
+body{
+  direction: ltr;
+}
 
 .form input {
 direction: rtl;
@@ -150,7 +153,7 @@ direction: rtl;
         <input type="text" name="last_name" class="form-control mt-2" placeholder="الاسم الاخير" />
         <input type="text" name="username" class="form-control mt-2" placeholder="اسم المستخدم" />
         <input type="email" name="email" class="form-control mt-2" placeholder="البريد الالكتروني" />
-        <input type="password" name="password" class="form-control mt-2" placeholder="رمز المرور" />
+        <input type="password" name="password" class="form-control mt-2" placeholder="كلمة المرور" />
         <button class="button" type="submit" value="Register" >تسجيل</button>
       </form>
     </div>
@@ -163,7 +166,7 @@ direction: rtl;
       <form action="{% url 'accounts:login_user_view' %}" method="post" >
         {% csrf_token %}
         <input type="text" name="username" class="form-control mt-2" placeholder="اسم المستخدم" />
-        <input type="password" name="password" class="form-control mt-2" placeholder="رمز المرور" />
+        <input type="password" name="password" class="form-control mt-2" placeholder="كلمة المرور" />
         <button class="button" value="Login " type="submit">دخول</button>
       </form>
     </div>
@@ -173,7 +176,7 @@ direction: rtl;
 </div>
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{% static 'styles/main.js' %}" ></script>
+<script src="{% static 'styles/js/main.js' %}" ></script>
 
 {% if msg %}
 <script>
