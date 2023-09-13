@@ -74,7 +74,17 @@
 
 <!--company reviews-->
 <hr />
-
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      تصفية حسب الخبرة
+  </a>
+  <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?موظف=موظف">موظف</a></li>
+      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?مقابلة=مقابلة">مقابلة</a></li>
+      <li><a class="dropdown-item" href="{% url 'companies:company_detail_view' company.id %}?تدريب=تدريب">تدريب</a></li>
+  </ul>
+</li>
 <h4>Reviews ( {{ company.review_set.count }} )</h4>
 <div class="mt-4">
   {% for review in reviews %}
@@ -93,17 +103,39 @@
     <p>{{review.experience}}</p>
     <h3>{{ review.position }}</h3>
     <h6>{{ review.description }}</h6>
-    <h6>{{review.rating}}</h6>
+    <div style="color: #f9c448;">
+      {% if review.rating == 1 %}
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 2 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 3 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 4 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 5 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% endif %} 
+  </div>
     {% if request.user.id == review.user.id or request.user.is_staff %}
     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-      data-bs-target="#deleteReviewModal">Delete</button>
-    <a href="{% url 'companies:review_update_view' review.id %}" class="btn btn-warning">Update reviews
+      data-bs-target="#deleteReviewModal{{review.id}}">Delete</button>
+    <a href="{% url 'companies:review_update_view' review.id %}?id={{company.id}}" class="btn btn-warning">Update reviews
       {{review.id}}</a>
     {% endif %}
   </div>
   <!-- for reviw -->
   {% if request.user.id == review.user.id or request.user.is_staff %}
-  <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteReviewModal{{review.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

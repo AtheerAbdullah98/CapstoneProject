@@ -1,36 +1,124 @@
 {% extends 'main/base.html' %}
+{%load static %}
 
 
-{% block title %} Add {% endblock %}
+{% block title %} About  {% endblock %}
+
 
 {% block content %}
+<style>
 
-<div class="row d-flex flex-column align-items-center pt-5">
-    <div class="col-6 rounded rounded-3" style="background-color: rgb(92, 84, 112); box-shadow: 0 6px 12px rgb(185, 180, 199);" >
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
+
+
+.container-signup .form,
+.container-signup form  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+body {
+  min-height: 100vh;
+  background: #e8e8e8;
+  font-family: "Source Sans Pro", sans-serif;
+  overflow: hidden;
+  direction: rtl;
+}
+
+
+.container-signup {
+ margin-right: 20%;
+  margin-top: 5%;
+  padding: 10px;
+  width: 800px;
+  height: 600px;
+  background: white;
+  position: relative;
+  display: grid;
+  box-shadow: 2px 2px 10px 0 rgba(51, 51, 51, 0.2);
+}
+
+
+
+.container-signup .form--heading {
+  font-size: 25px;
+  height: 50px;
+  color: #30334B;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+
+.container-signup form  {
+  width: 50%;
+}
+.container-signup form > * {
+  margin: 10px;
+}
+.container-signup form input {
+  width: 90%;
+  border: 0;
+  border-bottom: 1px solid #aaa;
+  font-size: 13px;
+  font-weight: 300;
+  color: #797a9e;
+  letter-spacing: 0.11em;
+}
+.container-signup form input::placeholder {
+  color: #333;
+  font-size: 10px;
+}
+.container-signup form input:focus {
+  outline: 0;
+  border-bottom: 1px solid rgba(128, 155, 206, 0.7);
+  transition: 0.6s all ease;
+}
+
+.container-signup .button {
+  width: 50%;
+  height: 30px;
+  border: 0;
+  outline: 0;
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+  position: relative;
+  z-index: 3;
+  background: #30334B;
+  font-family: "Source Sans Pro", sans-serif;
+  cursor: pointer;
+}
+label{
+    
+    margin-left: 75% !important;
+    margin-bottom: -30px !important;
+    width: 65px;
+
+}
+</style>
+<div class="container-signup">
+ <div class="form form--signup ">
+    <div class="form--heading"> اضافة شركة</div>
     <form action="{% url 'companies:add_company_view' %}" enctype="multipart/form-data"  method="post">
-        {% csrf_token %}
-            <h2 class="text-center pt-4 pb-2" style=" color: rgb(250, 240, 230);">Adding company</h2>
-            <label class="form-label" style="color:rgb(250, 240, 230);">Name:</label>
-            <input type="text" name="name" class="form-control">
-            <label class="form-label" style="color:rgb(250, 240, 230);">field:</label>
-            <input type="text" name="field" class="form-control">
-            <div class="mb-3">
-                <label class="form-label"style="color:rgb(250, 240, 230) ;">info:</label>
-                <textarea class="form-control" name="info"></textarea>
-            </div>
-            <div class="mb-3">
-                <label class="form-label"style="color:rgb(250, 240, 230) ;">description:</label>
-                <textarea class="form-control" name="description"></textarea>
-            </div>
-            <div class="mb-3">
-                <label style="color:rgb(250, 240, 230);">Choose Image: </label>
-                <input type="file" name="image" class="form-control"/>
-            </div>
-            
-            <div class="text-center">
-            <button type="submit" class="btn mt-4 mb-4" style="background-color: rgb(250, 240, 230); color:rgb(92, 84, 112) ;">Add company</button>
-        </div>
+      {% csrf_token %}
+      <label  class="form-label"  >الشركة</label><br>
+      <input type="text" name="name" class="form-control mt-2" placeholder=" اسم الشركة" />
+      <label  class="form-label"  >المجال</label><br>
+      <input type="text" name="field" class="form-control mt-2" placeholder="مجال الشركة" />
+      <label  class="form-label"  >نبذه</label><br>
+      <textarea class="form-control  mt-2" name="info" placeholder="نبذه عن الشركة"></textarea>
+      <label  class="form-label"  >الوصف</label><br>
+      <textarea class="form-control mt-2"   name="description" placeholder="وصف الشركة"></textarea>
+      <label  class="form-label"  >ارفاق صورة</label><br>
+      <input type="file" name="image" class="form-control mt-2" placeholder=" شعار الشركة" />
+      <button class="button" type="submit"  >اضافة</button>
     </form>
-
+  </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'styles/a.js' %}" ></script>
+
 {% endblock %}

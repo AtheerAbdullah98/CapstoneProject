@@ -10,7 +10,7 @@
     <div class="col-md-6">
         <h2>Update Review</h2>
 
-        <form  action="{% url 'companies:review_update_view' review.id %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+        <form  action="{% url 'companies:review_update_view' review.id %}?id={{request.GET.id}}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
             {% csrf_token %} 
             <label>Experience: </label>
             <select name="experience" class="form-select">
@@ -25,20 +25,14 @@
             <label>Description: </label>
             <textarea name="description" class="form-control">{{ review.description }}</textarea> 
             
-            <label>Rating: </label>
-            <select name="rating" class="form-select">
-                {% for value, title in review.rating_choices %}
-                    <option value="{{value}}" {% if review.rating == value %} selected {% endif%}>{{title}}</option>
-                {% endfor %}
-            </select>
-           <!-- <label class="form-label">Rate your experience:</label>
+           <label class="form-label">Rate your experience:</label>
             <div class="rate"style="color: #f9c448;">
-                <input type="radio" name="rating" id="rating5" value="5" /><label for="rating5" title="5" class="fa fa-star"> 5 </label>
-                <input type="radio" name="rating" id="rating4" value="4"/><label for="rating4" title="4" class="fa fa-star"> 4 </label>
-                <input type="radio" name="rating" id="rating3" value="3"/><label for="rating3" title="3" class="fa fa-star"> 3 </label>
-                <input type="radio" name="rating" id="rating2" value="2"/><label for="rating2" title="2" class="fa fa-star"> 2 </label>
-                <input type="radio" name="rating" id="rating1" value="1"/><label for="rating1" title="1" class="fa fa-star"> 1 </label>
-            </div>-->
+                <input type="radio" name="rating" id="rating5" value="5" {% if review.rating == 5 %} checked {% endif%} /><label for="rating5" title="5" class="fa fa-star"> 5 </label>
+                <input type="radio" name="rating" id="rating4" value="4" {% if review.rating == 4 %} checked {% endif%}/><label for="rating4" title="4" class="fa fa-star"> 4 </label>
+                <input type="radio" name="rating" id="rating3" value="3" {% if review.rating == 3 %} checked {% endif%}/><label for="rating3" title="3" class="fa fa-star"> 3 </label>
+                <input type="radio" name="rating" id="rating2" value="2" {% if review.rating == 2 %} checked {% endif%}/><label for="rating2" title="2" class="fa fa-star"> 2 </label>
+                <input type="radio" name="rating" id="rating1" value="1" {% if review.rating == 1 %} checked {% endif%}/><label for="rating1" title="1" class="fa fa-star"> 1 </label>
+            </div>
 
 
             <input type="submit" value="update review" class="btn btn-primary"/>

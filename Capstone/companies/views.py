@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, resolve_url
 from django.http import HttpRequest, HttpResponse
 
 from django.contrib.auth.models import User
+from accounts.models import Profile
 
 from .models import Company, Favorite, Report,Review
 
@@ -31,7 +32,15 @@ def add_company_view(request: HttpRequest):
     except: 
         return redirect("main:home_view")
 
-    
+def dashbord_view(request: HttpRequest, user_id):
+    try:
+        profile = Profile.objects.get(user__id=user_id)
+    except:
+        return render(request, "main/not_found.html")
+
+
+    return render(request, "companies/dashboard.html",{"profile" : profile})
+
 def approve_company_view(request: HttpRequest):
     try:
         msg = None
@@ -106,7 +115,15 @@ def company_detail_view(request: HttpRequest, company_id):
 
   for index, review in enumerate(reviews):
       reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
-  
+  if "موظف" in request.GET:
+        reviews = Review.objects.filter(experience__contains=request.GET["موظف"])
+        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+  elif "مقابلة" in request.GET:
+        reviews = Review.objects.filter(experience__contains=request.GET["مقابلة"])
+        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
+  elif "تدريب" in request.GET:
+        reviews = Review.objects.filter(experience__contains=request.GET["تدريب"])
+        return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
   #experience_choices= Review.experience
   if request.method == "POST":
         if not request.user.is_staff:
@@ -116,12 +133,20 @@ def company_detail_view(request: HttpRequest, company_id):
         msg='company approved'
         return redirect("companies:all_companies_view")
   
-  return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews, "Review" : Review})
+  return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
 
 def companies_search_view(request: HttpRequest):
 
     if "search" in request.GET:
         companies = Company.objects.filter(name__contains=request.GET["search"])
+    elif "تقنية" in request.GET:
+        companies = Company.objects.filter(field = "تقنية")
+    elif "صحي" in request.GET:
+        companies = Company.objects.filter(field = "صحي")
+    elif "البنوك" in request.GET:
+        companies = Company.objects.filter(field = "البنوك")
+    elif "الاتصالات" in request.GET:
+        companies = Company.objects.filter(field = "الاتصالات")
     else:
         companies = Company.objects.all()
 
@@ -144,17 +169,13 @@ def add_Review_view(request: HttpRequest,company_id):
 
 
 def review_delete_view(request: HttpRequest, review_id):
-    is_user = Review.objects.get(id=review_id)
-    if request.user.id != is_user.user.id and not request.user.is_staff:
-            # print(request.user.id == is_user.user.id)
-            return redirect("accounts:login_user_view")
+    review=Review.objects.get(id=review_id)
+    if review.user ==request.user or request.user.is_staff:
+        review.delete()
+        return redirect('companies:company_detail_view',review.company.id)
+    else:
+        return redirect("accounts:login_user_view")
     
-    isreview = Review.objects.filter(user=request.user)
-    review = Review.objects.get(id=review_id)
-    review.delete()
-    
-
-    return redirect("companies:all_companies_view")
 
 def review_update_view(request:HttpRequest, review_id):
     # try:
@@ -165,13 +186,19 @@ def review_update_view(request:HttpRequest, review_id):
     
         review = Review.objects.get(id=review_id,)
         # companyId=Review.company.id
-
         if request.method == "POST":
+            if "id" in request.GET:
+                global company_id 
+                company_id = request.GET['id']
+                print(company_id)
+                
             review.experience = request.POST["experience"]
             review.position = request.POST["position"]
             review.description = request.POST["description"]
             review.rating = request.POST["rating"]
             review.save()
+            return redirect("companies:company_detail_view", company_id= company_id)
+
 
             # return redirect("companies:company_detail_view", review_id=review.id)
         return render(request,"companies/update_review.html",{"review":review })
@@ -181,7 +208,6 @@ def review_update_view(request:HttpRequest, review_id):
     # return render(request, "companies/update_review.html",review.id)
 
 def all_reveiws_view(request: HttpRequest):
-    
    
     # reveiws = Review.objects.filter( id= user_id )
     return render(request, "companies/all_reveiws.html")
@@ -246,3 +272,27 @@ def all_report_view(request: HttpRequest):
     reports = Report.objects.all
     
     return render(request, "companies/all_report.html", {"reports" : reports})
+
+
+def company_filter_view(request: HttpRequest):
+# جزء تابع للهوم بيج يحذف بعدين
+    
+    
+    return render(request, "companies/company_filter.html")
+
+# def review_filter_view(request: HttpRequest,company_id):
+
+#     if "search" in request.GET:
+#         reviews = Review.objects.filter(name__contains=request.GET["search"])
+#     elif "تقنية" in request.GET:
+#         companies = Company.objects.filter(field = "تقنية")
+#     elif "صحي" in request.GET:
+#         companies = Company.objects.filter(field = "صحي")
+#     elif "البنوك" in request.GET:
+#         companies = Company.objects.filter(field = "البنوك")
+#     elif "الاتصالات" in request.GET:
+#         companies = Company.objects.filter(field = "الاتصالات")
+#     else:
+#         companies = Company.objects.all()
+
+#     return render(request, 'companies/search_results.html', {"reviews" : reviews})

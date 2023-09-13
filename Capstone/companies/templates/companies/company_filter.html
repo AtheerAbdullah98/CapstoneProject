@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block title %} filter {% endblock %}
+
+
+{% block content %}
+<a href="{% url 'companies:companies_search_view' %}?تقنية=تقنية" class="d-flex justify-content-between text-decoration-none">
+    <h5>تقنية</h5>
+</a>
+<a href="{% url 'companies:companies_search_view' %}?صحي=صحي" class="d-flex justify-content-between text-decoration-none">
+    <h5>صحي</h5>
+</a>
+<a href="{% url 'companies:companies_search_view' %}?البنوك=البنوك" class="d-flex justify-content-between text-decoration-none">
+    <h5>البنوك</h5>
+</a>
+<a href="{% url 'companies:companies_search_view' %}?الاتصالات=الاتصالات" class="d-flex justify-content-between text-decoration-none">
+    <h5>الاتصالات</h5>
+</a>
+{% endblock %}

@@ -7,6 +7,7 @@ urlpatterns = [
      
     path("all/", views.all_companies_view, name="all_companies_view"),
     path("add/", views.add_company_view, name="add_company_view"),
+    path("dashboard/<user_id>/",views.dashbord_view,name="dashbord_view"),
     path("update/<company_id>/", views.company_update_view, name="company_update_view"),
     path("delete/<company_id>/", views.company_delete_view, name="company_delete_view"),
     path("detail/<company_id>/", views.company_detail_view, name="company_detail_view"),
@@ -21,4 +22,6 @@ urlpatterns = [
     path("report/<review_id>/", views.report_view, name="report_view"),
     path("reports", views.all_report_view, name="all_report_view"),
     path("favorites/", views.user_favorite_view, name="user_favorite_view"),
+    path("field/", views.company_filter_view, name="company_filter_view"),
+    # path("reviews/filter/", views.review_filter_view, name="review_filter_view"),
 ]

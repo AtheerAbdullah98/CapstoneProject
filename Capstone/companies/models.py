@@ -21,7 +21,7 @@ class Company(models.Model):
 class Review(models.Model):
 
     rating_choices = ((1, "1 Star"), (2, "2 Stars"), (3, "3 Stars"), (4, "4 Start"), (5, "5 Start"), )
-    experience_choices = (("employee", "employee"), ("interview", "interview"), ("coop", "COOP"), )
+    experience_choices = (("موظف", "موظف"), ("مقابلة", "مقابلة"), ("تدريب", "تدريب"), )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     company=models.ForeignKey(Company,on_delete=models.CASCADE)
