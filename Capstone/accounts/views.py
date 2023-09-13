@@ -33,7 +33,7 @@ def login_user_view(request: HttpRequest):
             login(request, user)
             return redirect("main:home_view")
         else:
-            msg = "اسم المستخدم او رمز المرور غير صحيحه"
+            msg = "اسم المستخدم او كلمة المرور غير صحيحة"
 
 
     return render(request, "accounts/registration.html", {"msg": msg})
