@@ -14,12 +14,19 @@
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/style.css">
-      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
     </head>
-  
+  <style>
+    .navbar{
+      height: 100px;
+    }
+    #navbarsExample09{
+    color: aliceblue;
+    }
+  </style>
         <nav class="navbar sticky-top navbar-expand-lg" aria-label="Eleventh navbar example">
             <div class="container">
-              <a class="navbar-brand" style="color: aliceblue;" href="/">مراَة الوظائف</a>
+              <a class="navbar-brand" style="color: aliceblue; font-size: 30px;" href="/">مراَة وظيفتي</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -44,29 +51,28 @@
                   </li>
                   {% endif %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'companies:all_companies_view'%}">all companies</a>
+                    <a class="nav-link" href="{% url 'companies:all_companies_view'%}">كل الشركات </a>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                       {% if request.user.is_authenticated %}
                         <img src="{{ request.user.profile.avatar.url }}" alt="avatar" width="32" height="32" class="avatar rounded-circle">
                         {{ request.user.first_name }} 
-                      {% else %} Register {% endif %} 
+                      {% else %} <span class="material-symbols-outlined">
+                        account_circle
+                        </span> {% endif %} 
                     </a>
                     <ul class="dropdown-menu">
                       
                       {% if request.user.is_staff %}
-                          <li><a class="dropdown-item" href="{% url 'companies:dashbord_view' request.user.id %}">Dashboard</a></li>
+                          <li><a class="dropdown-item" href="{% url 'companies:dashbord_view' request.user.id %}">لوحه التحكم</a></li>
                       {% endif %}
-                      {% if request.user.is_authenticated %}
-                        <li><a class="dropdown-item" href="{% url 'accounts:profile_page' request.user.id %}">ملفي</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:update_profile_page' request.user.id %}">Update Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:added_company_list_view' user.id %}">My added company</a></li>
-                        <li><a class="dropdown-item" href="{% url 'companies:all_reveiws_view' %}">My reveiws</a></li>
-                        <li><a class="dropdown-item" href="{% url 'companies:user_favorite_view' %}">My favorite</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">Log Out</a></li>
+                      {% if request.user.is_authenticated and not request.user.is_staff  %}
+                        <li><a class="dropdown-item" href="{% url 'accounts:profile_page' request.user.id %}">المللف الشخصي</a></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:update_profile_page' request.user.id %}">تعديل معلوماتي</a></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">تسجيل الخروج</a></li>
                       {% else %} 
-                      <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">Registeration</a></li> 
+                      <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">تسجيل او تسجيل الدخول</a></li> 
                       {% endif %}              
               
 

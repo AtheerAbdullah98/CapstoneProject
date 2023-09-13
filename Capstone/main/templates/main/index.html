@@ -5,247 +5,78 @@
 
 
 {% block content %}
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
 <link href="https://fonts.googleapis.com/css2?family=Markazi+Text&family=Noto+Naskh+Arabic:wght@500&family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
-<style>
- body{
-  font-family: 'Markazi Text', serif;
- }
-    @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900);
-    .contact-form {
-      margin-top: 30px;
-    }
-    .contact-form .input-block {
-      background-color: rgba(255, 255, 255, 0.8);
-      border: solid 1px #466A8B;
-      width: 100%;
-      height: 60px;
-      padding: 25px;
-      position: relative;
-      margin-bottom: 20px;
-      -moz-transition: all 0.3s ease-out;
-      -o-transition: all 0.3s ease-out;
-      -webkit-transition: all 0.3s ease-out;
-      transition: all 0.3s ease-out;
-    }
-    .contact-form .input-block.focus {
-      background-color: #fff;
-      border: solid 1px #466A8B;
-    }
-    .contact-form .input-block.textarea {
-      height: auto;
-    }
-    .contact-form .input-block.textarea .form-control {
-      height: auto;
-      resize: none;
-    }
-    .contact-form .input-block label {
-      position: absolute;
-      left: 25px;
-      top: 25px;
-      display: block;
-      margin: 0;
-      font-weight: 300;
-      z-index: 1;
-      color: #333;
-      font-size: 18px;
-      line-height: 10px;
-    }
-    .contact-form .input-block .form-control {
-      background-color: transparent;
-      padding: 0;
-      border: none;
-      -moz-border-radius: 0;
-      -webkit-border-radius: 0;
-      border-radius: 0;
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-      height: auto;
-      position: relative;
-      z-index: 2;
-      font-size: 18px;
-      color: #333;
-    }
-    .contact-form .input-block .form-control:focus label {
-      top: 0;
-    }
-    .contact-form .square-button {
-      background-color: rgba(255, 255, 255, 0.8);
-      color: #466A8B;
-      font-size: 26px;
-      text-transform: uppercase;
-      font-weight: 700;
-      text-align: center;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      -moz-transition: all 0.3s ease;
-      -o-transition: all 0.3s ease;
-      -webkit-transition: all 0.3s ease;
-      transition: all 0.3s ease;
-      padding: 0 60px;
-      height: 60px;
-      border: none;
-      width: 100%;
-    }
-    .contact-form .square-button:hover, .contact-form .square-button:focus {
-      background-color: white;
-    }
-    
-    @media (min-width: 768px) {
-      .contact-wrap {
-        width: 60%;
-        margin: auto;
-      }
-    }
-    /*----page styles---*/
-    body {
-      background-color: #D9C4AA;
-    }
-    
-    .contact-wrap {
-      padding: 15px;
-    }
-    
-    h1 {
-      background-color: white;
-      color: #466A8B;
-      padding: 40px;
-      margin: 0 0 30px;
-      font-size: 30px;
-      text-transform: uppercase;
-      font-weight: 700;
-      text-align: center;
-    }
-    .home{
-      font-size: large;
-    }
-    #name{
-      font-size: 50px;
-      
-    }
-   .homecontent{
-    font-size: 35px;
-   }
-   .img{
-width: 300px;
-height: auto;
-   }
-   #homepage{
-    margin-top: 10%;
-    height: 100vh;
-   }
-   .btn-3 {
-  background: #466A8B;
-  background: linear-gradient(0deg, #466A8B 0%, #466A8B 100%);
-  width: 130px;
-  height: 40px;
-  line-height: 42px;
-  padding: 0;
-  border: none;
-  
-}
-.btn-3 span {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.btn-3:before,
-.btn-3:after {
-  position: absolute;
-  content: "";
-  right: 0;
-  top: 0;
-   background: #466A8B;
-  transition: all 0.3s ease;
-}
-.btn-3:before {
-  height: 0%;
-  width: 2px;
-}
-.btn-3:after {
-  width: 0%;
-  height: 2px;
-}
-.btn-3:hover{
-  background: transparent;
-  box-shadow: none;
-}
-.btn-3:hover:before {
-  height: 100%;
-}
-.btn-3:hover:after {
-  width: 100%;
-}
-.btn-3 span:hover{
-   color: rgba(2,126,251,1);
-}
-.btn-3 span:before,
-.btn-3 span:after {
-  position: absolute;
-  content: "";
-  left: 0;
-  bottom: 0;
-  background: #466A8B;
-  transition: all 0.3s ease;
-}
-.btn-3 span:before {
-  width: 2px;
-  height: 0%;
-}
-.btn-3 span:after {
-  width: 0%;
-  height: 2px;
-}
-.btn-3 span:hover:before {
-  height: 100%;
-}
-.btn-3 span:hover:after {
-  width: 100%;
-}
-.custom-btn {
-  width: 130px;
-  height: 60px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-weight: 500;
-  font-size: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-   7px 7px 20px 0px rgba(0,0,0,.1),
-   4px 4px 5px 0px rgba(0,0,0,.1);
-  outline: none;
-  display: inline-block;
-}
 
-</style>
-<section id="homepage">
-<div class="row pt-4">
+<script>
+  $(function() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<section id="homepage" >
+<div class="row pt-4 homepage">
     <div class=" col-6 home">
-        <div class="d-flex flex-row  align-items-center ">
-            <p class="homecontent"> <span id="name" > مراة الوظائف</span> لمساعدتك على اتخاذ قرارات مستنيرة حول أماكن العمل المحتملة وتوفير نظرة داخلية عن الشركات قبل الانضمام إليها</p>
+        <div class="d-flex flex-row align-items-center ">
+          <h4 id="name" class="animate__bounceIn animate__animated"  > مراَة وظيفتي</h4> 
+           <p class="homecontent">   اتخذ قرارات مستنيرة حول أماكن العمل المحتملة </p>
           
           </div>
 
-          <a id="explore" href="#" class="btn btn-3 custom-btn "> تصفح الشركات</a>  
-          <a href="{% url 'main:about_view' %}" class="btn btn-3 custom-btn">اعرف اكثر</a>  
+          <a id="explore" href="#" class="btn btn-3 custom-btn page-scroll ">تصفح الشركات</a>  
+          <a href="#about" class="btn btn-3 custom-btn page-scroll">اعرف اكثر</a>  
           <div class="row">
               </div>
         </div>
         
 <div class="col">
-  <img src="{%static 'images/home.png'%}" class=" img">
+  <img src="{%static 'images/tl.webp'%}" class="animate__bounceInLeft animate__animated img" style="animation-duration: 2s;">
 
 </div>
     </div>
   </section>
-<hr/>
-<section></section>
-<h1> Countant us </h1>
+
+<section id="about">
+
+  <div class="row">
+    <div class="col">
+        <span id="who"> من نحن <span style="transform: scaleX(-1); font-size: 35px;" class="material-symbols-outlined">
+          question_mark
+          </span></span>
+        <div class="aboutcontent">
+        <div class=""> 
+            المكان المثالي للعثور على المعلومات التي تحتاجها لاتخاذ قرارات مستنيرة بشأن مستقبلك المهني 
+            <span id="name">"مراَة وظيفتي" </span>
+          سواءًا كنت تبحث عن معلومات حول بيئة العمل أو ترغب في فهم كيفية الاستعداد لمقابلة وظيفية، نوفر لك المعلومات عن الشركات في كافة القطاعات ويمكن للموظفين السابقين الذين عاشوا تجارب مع هذه الشركات مشاركة تجاربهم وآرائهم بكل حرية. 
+         <div class="animate__bounceInLeft animate__animated" style="animation-duration: 3s;">
+         توجيه وتقديم نصائح:<br>
+          يمكن للموظفين السابقين تقديم نصائح وتوجيهات للباحثين عن العمل حول كيفية التقديم للوظائف في تلك الشركات وكيفية النجاح في عمليات المقابلة.
+         </div>
+         
+         <div class="animate__bounceInLeft animate__animated" style="animation-duration: 5s;">
+         تحسين الشفافية:<br>
+         نساعد على زيادة شفافية الشركات وتشجيعها على تحسين ظروف العمل وثقافتها الشركية.
+         </div>
+        </div>
+    </div>
+  </div></div>
+
+</section>
+
+<section class="catgorypage">
+  here category of companies
+</section>
+<section id="contact">
+  <h1> Countant us </h1>
   <section class="contact-wrap">
     <form action="" class="contact-form">
       <div class="col-sm-12">
@@ -271,6 +102,9 @@ height: auto;
       </div>
     </form>
   </section>
+</div>
+
+</section>
   
   
 
