@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 
-{% block title %} All companies  {% endblock %}
+{% block title %} كل الشركات  {% endblock %}
 
 {% block content %}
 
@@ -97,5 +97,7 @@
 
 </div>
 
-<a href="{% url 'companies:dashbord_view' request.user.id %}" class="btn btn-color mt-4 ">سابق</a>
+<a href="{% url 'companies:dashbord_view' request.user.id %}" class="btn  mt-3 "> <span class="material-symbols-outlined">
+  arrow_forward_ios
+  </span>رجوع</a>
 {% endblock %}
