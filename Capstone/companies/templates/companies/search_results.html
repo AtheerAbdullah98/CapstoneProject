@@ -6,9 +6,9 @@
 {% block content %}
 
 <div class="d-flex justify-content-between mt-4">
-    <h1> Search Results for "<span class="text-success"> {% if "search" in request.GET %} {{ request.GET.search }} {%elif "تقنية" in request.GET %} {{request.GET.تقنية}} {% elif "صحي" in request.GET %} {{request.GET.صحي}}
-            {% elif "البنوك" in request.GET %} {{request.GET.البنوك}} {% elif "الاتصالات" in request.GET %}
-            {{request.GET.الاتصالات}} {% endif %} </span>"</h1>
+    <h1> <span class="text-success"> {% if "search" in request.GET %}  نتائج بحث "{{ request.GET.search }}"  {%elif "تقنية" in request.GET %} المجال التقني: {% elif "صحي" in request.GET %} المجال الصحي:
+            {% elif "البنوك" in request.GET %} مجال البنوك: {% elif "الاتصالات" in request.GET %}
+            مجال الاتصالات:  {% endif %} </span></h1>
 </div>
 
 <div class="row">
