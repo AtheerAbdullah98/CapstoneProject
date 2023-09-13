@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 
-{% block title %} All reveiws  {% endblock %}
+{% block title %} تعليقاتي  {% endblock %}
 
 {% block content %}
 
@@ -103,5 +103,9 @@
         </div>
     </div>
 {% endfor %}
+
+<a href="{% url 'accounts:profile_page' request.user.id %}" class="btn btn-color mt-4 "> <span class="material-symbols-outlined">
+  arrow_forward_ios
+  </span>رجوع</a>
 
 {% endblock %}

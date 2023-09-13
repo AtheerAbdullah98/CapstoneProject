@@ -1,7 +1,7 @@
 {% extends 'main/base.html'%}
 
 
-{% block title %} {{profile.user.username}} profile {% endblock %}
+{% block title %} {{profile.user.username}} الملف الشخصي {% endblock %}
 
 {% block content %}
 
@@ -67,6 +67,9 @@ table th{
         {% endfor %}
     </table>
 
+    <a href="{% url 'accounts:profile_page' request.user.id %}" class="btn btn-color mt-4 "> <span class="material-symbols-outlined">
+        arrow_forward_ios
+        </span>رجوع</a>
 {% endblock %}
 
 

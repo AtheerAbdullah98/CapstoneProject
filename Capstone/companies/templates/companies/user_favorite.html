@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 
-{% block title %} my favorite  {% endblock %}
+{% block title %} إعجاباتي  {% endblock %}
 
 {% block content %}
 <style>
@@ -79,5 +79,8 @@
     </div>
 {% endfor %}
 </div>
+<a href="{% url 'accounts:profile_page' request.user.id %}" class="btn btn-color mt-4 "> <span class="material-symbols-outlined">
+  arrow_forward_ios
+  </span>رجوع</a>
 
 {% endblock %}
