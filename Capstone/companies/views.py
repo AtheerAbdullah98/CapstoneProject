@@ -121,40 +121,62 @@ def company_detail_view(request: HttpRequest, company_id):
         if experience !="all" and position != "all":
             if order != "all":
                 Review.objects.filter(company=company,experience=experience,position=position).order_by(f"-{order}")
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
             if order == "favorite": 
                 reviews_favorite = Review.objects.filter(company=company,experience=experience,position=position).annotate(favorite_count=Count('favorite'))
                 reviews = reviews_favorite.order_by('-favorite_count')
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
                 return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
             else:
                 reviews = Review.objects.filter(company=company,experience=experience,position=position)
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
             return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
         if experience =="all" and position != "all":
             if order != "all":
                 reviews = Review.objects.filter(company=company,position=position).order_by(f"-{order}")
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
             if order == "favorite": 
                 reviews_favorite = Review.objects.filter(company=company,position=position).annotate(favorite_count=Count('favorite'))
                 reviews = reviews_favorite.order_by('-favorite_count')
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
                 return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
             else:
                 reviews = Review.objects.filter(company=company,position=position)
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
             return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
         if experience !="all" and position == "all":
             if order != "all":
                 reviews = Review.objects.filter(company=company,experience=experience).order_by(f"-{order}")
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
             if order == "favorite": 
                 reviews_favorite = Review.objects.filter(company=company,experience=experience).annotate(favorite_count=Count('favorite'))
                 reviews = reviews_favorite.order_by('-favorite_count')
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
                 return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
             else:
                 reviews = Review.objects.filter(company=company,experience=experience)
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
             return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
         else:
             if order != "all":
                 reviews = Review.objects.filter(company=company).order_by(f"-{order}")
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
                 return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
             if order == "favorite":
                 reviews_favorite = Review.objects.annotate(favorite_count=Count('favorite'))
                 reviews = reviews_favorite.order_by('-favorite_count')
+                for index, review in enumerate(reviews):
+                    reviews[index].is_favored = Favorite.objects.filter(user=request.user, review=review).exists()
                 return render(request, "companies/company_detail.html", {"company" : company,"reviews" : reviews})
 # end filter reviews
   if request.method == "POST":
@@ -248,8 +270,7 @@ def add_favorite_view(request: HttpRequest, review_id):
 
     if not request.user.is_authenticated:
         return redirect("accounts:login_user_view")
-    
-
+    url= request.META.get('HTTP_REFERER') 
     review = Review.objects.get(id=review_id)
     company_id= review.company.id
 
@@ -258,14 +279,15 @@ def add_favorite_view(request: HttpRequest, review_id):
         new_favorite.save()
 
 
-    return redirect("companies:company_detail_view", company_id= company_id)
+    # return redirect("companies:company_detail_view", company_id= company_id)
+    return redirect(url)
 
 def remove_favorite_view(request: HttpRequest, review_id):
 
     if not request.user.is_authenticated:
         return redirect("accounts:login_user_view")
     
-
+    url= request.META.get('HTTP_REFERER')
     review = Review.objects.get(id=review_id)
     company_id= review.company.id
     user_favorite = Favorite.objects.filter(user=request.user, review=review).first()
@@ -274,7 +296,8 @@ def remove_favorite_view(request: HttpRequest, review_id):
         user_favorite.delete()
         
 
-    return redirect("companies:company_detail_view", company_id= company_id)
+    # return redirect("companies:company_detail_view", company_id= company_id)
+    return redirect(url)
 
 def user_favorite_view(request: HttpRequest):
     return render(request,"companies/user_favorite.html")
