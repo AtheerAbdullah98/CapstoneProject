@@ -6,7 +6,7 @@
 {% if "msg" in  request.GET %}
 
 <div class="alert alert-dismissible fade show"
-    style="background-color: rgb(70, 106, 139); color:  rgb(255, 255, 255);" role="alert">
+    style="background-color: rgb(92, 84, 112); color:  rgb(250, 240, 230);" role="alert">
     <strong>{{request.GET.msg}}</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
@@ -14,15 +14,15 @@
 
   <!-- d -->
   <div class="row  d-flex flex-column align-items-center justify-content-center pt-5 pb-4"
-    style="background-color: rgb(70, 106, 139); box-shadow: 0 2px 6px rgb(70, 106, 139); color:rgb(255, 255, 255) ;">
-    <div class="col-10">
+    style="background-color: rgba(70, 106, 139, 0.61); box-shadow: 0 6px 12px rgb(185, 180, 199); color:rgb(255, 255, 255) ;">
+    <div class="col-10 pt-3">
         <h3 class="text-center">{{ company.name }}</h3>
         <hr />
         <div class="row">
-          <div class="col-4 border border-2"><img src="{{ company.image.url }}" class="rounded-4 w-100" /></div>
+          <div class="col-4  "><img src="{{ company.image.url }}" class="rounded-2 w-100" /></div>
           <div class="col-4">
-          <p style="font-size: 24px;"> مجال الشركة: {{company.field}} </p>
-          <p style="font-size: 16px;">الوصف: {{company.description}}</p>
+          <p style="font-size: 24px;">  {{company.field}} </p>
+          <p style="font-size: 16px;"> {{company.description}}</p>
         </div>
         <div class="text-center">
         {% if request.user.is_staff %}
@@ -49,22 +49,22 @@
 
 
 </div>
-
-
+<br>
+<h2 class="pt-5">التجارب  </h2>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete company</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">حذف الشركة</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ?
+        هل انت متأكد من حذف    <span class="fw-bold">{{company.name}}</span> ؟
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="{% url 'companies:company_delete_view' company.id %}" class="btn btn-danger">Yes, Delete!</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">تراجع</button>
+        <a href="{% url 'companies:company_delete_view' company.id %}" class="btn btn-danger">نعم ، حذف !</a>
       </div>
     </div>
   </div>
@@ -98,70 +98,54 @@
 <button type="submit" style="width: auto; background-color: rgb(70, 106, 139); color:rgb(255, 255, 255);" class="btn" >تطبيق التصفية</button>
 </div>
 </form>
-
+<br>
 <div class="mt-4">
   {% for review in reviews %}
-  <div class=" rounded p-4 mt-3" style="background-color: rgba(70, 106, 139, 0.727); color:rgb(255, 255, 255);">
-    <div class="row  align-items-center ">
-<div class="col-1 ">
-  <img src="{{review.user.profile.avatar.url}}" alt="Avatar" style="vertical-align: middle; width: 50px;height: 50px;border-radius: 50%;">
-</div>
-<div class="col-2 ">
-  <p >{{review.user.username}}</p>
-  <div style="color: #f9c448; font-size: 8px;">
-    {% if review.rating == 1 %}
-    <span class="fa fa-star fa-2x"></span>
-    {% elif review.rating == 2 %}
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    {% elif review.rating == 3 %}
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    {% elif review.rating == 4 %}
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    {% elif review.rating == 5 %}
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    <span class="fa fa-star fa-2x"></span>
-    {% endif %} 
-</div>
-</div>
-<div class="col-1">
-  <div class="row">
-  <div class="col">
-  <h6><a
-    href="{% if review.is_favored  %}{% url 'companies:remove_favorite_view' review.id  %}{% else %}{% url 'companies:add_favorite_view' review.id  %}{% endif %}"
-    class="{% if review.is_favored %} text-danger {% endif%}"><span class="material-symbols-outlined">favorite </span></a> {{ review.favorite_set.count }}
-    </h6>
-</div>
-<div class="col">
-<h6><a href="{% url 'companies:report_view' review.id  %}" class="text-danger"> 
-  <span class="material-symbols-outlined">
-    flag
-    </span></a>
-</h6>
-</div>
-</div>
-</div>
+  <div class="d-flex flex-column gap-1 border border-1 rounded p-4 mt-3">
+    <div class="h4 pb-4 mb-4  border-bottom  fw-bold">
+      {{review.user.username}}     {% if request.user.id == review.user.id or request.user.is_staff %}
+      <div class="d-grid gap-2 d-md-block text-start ">
+        <button class="btn btn-outline-danger" type="button"  data-bs-toggle="modal"
+        data-bs-target="#deleteReviewModal{{review.id}}">حذف</button>
+        <a href="{% url 'companies:review_update_view' review.id %}?id={{company.id}}" class="btn btn-outline-warning">تعديل </a>
+      </div>
+      {% endif %}
     </div>
-   
-    <h6>{{ review.publish_date }}</h6>
-    <p>{{review.experience}}</p>
-    <h3>{{ review.position }}</h3>
-    <h6>{{ review.description }}</h6>
+    <h6 class="text-start">{{ review.publish_date }}</h6> 
+    <p > نوع التجربه:{{review.experience}} </p>
+    <h5 >{{ review.position }}</h5>
+    <h6 class="pb-3">{{ review.description }}</h6>
+    <div style="color: #f9c448;">
+      {% if review.rating == 1 %}
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 2 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 3 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 4 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% elif review.rating == 5 %}
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      <span class="fa fa-star fa-2x"></span>
+      {% endif %} 
+  </div>
+  <h6 class="text-start"><a href="{% url 'companies:report_view' review.id  %}" class="text-danger "> 
+    <span class="material-symbols-outlined">
+      flag
+      </span></a>
+    <a href="{% if review.is_favored  %}{% url 'companies:remove_favorite_view' review.id  %}{% else %}{% url 'companies:add_favorite_view' review.id  %}{% endif %}"
+      class="{% if review.is_favored %} text-danger {% endif%}"><span class=" material-symbols-outlined">favorite </span></a> {{ review.favorite_set.count }}
+      </h6>
 
-    {% if request.user.id == review.user.id or request.user.is_staff %}
-    <button type="button" class="btn" style="width: auto; background-color: rgb(217, 196, 170); color:rgb(70, 106, 139);" data-bs-toggle="modal"
-      data-bs-target="#deleteReviewModal{{review.id}}">Delete</button>
-    <a href="{% url 'companies:review_update_view' review.id %}?id={{company.id}}" style="width: auto; background-color: rgb(217, 196, 170); color:rgb(70, 106, 139);" class="btn">Update reviews
-      </a>
-    {% endif %}
   </div>
   <!-- for reviw -->
   {% if request.user.id == review.user.id or request.user.is_staff %}
@@ -169,15 +153,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Review</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">حذف تجربة</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Are you sure you want to delete <span class="fw-bold">{{company.name}}</span> ?
+          هل انت متأكد من حذف تجربتك في  <span class="fw-bold">{{company.name}}</span> ؟
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <a href="{% url 'companies:review_delete_view' review.id %}" class="btn btn-danger">Yes, Delete!</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">تراجع</button>
+          <a href="{% url 'companies:review_delete_view' review.id %}" class="btn btn-danger">نعم ، حذف !</a>
         </div>
       </div>
     </div>
@@ -187,15 +171,15 @@
 </div>
 
 <div class="row justify-content-center">
-  <div class="">
+  <div class="col-md-6 pt-5 text-center">
     {% if request.user.is_authenticated %}
-    <a href="{% url 'companies:add_Review_view' company.id %}" style="background-color: rgb(70, 106, 139) ; color:rgb(255, 255, 255) ;" class="btn">Adding reviews </a>
+    <a href="{% url 'companies:add_Review_view' company.id %}" class="btn btn-warning ">إضافة تجربة </a>
 
 
     {% else %}
     <div class="p-4">
-      <h5>To add review, Please <a href="{% url 'accounts:login_user_view' %}">sign in</a> , or <a
-          href="{% url 'accounts:register_user_view' %}">sign up</a> </h5>
+      <h5> لإضافة تجربتك يرجى <a href="{% url 'accounts:login_user_view' %}">تسجيل الدخول</a> , او <a
+          href="{% url 'accounts:register_user_view' %}">التسجيل</a> </h5>
     </div>
 
     {% endif %}

@@ -33,6 +33,7 @@
       font-size: 34px;
     }
     .navbar.scrolled {
+      position: sticky;
       background-image: linear-gradient(to right,#466a8ba6 ,#ad9e8e91);
       border: 2px solid #c5ab9056; /* Add a 2px solid border with your desired color (#333 in this example) */
     }
@@ -67,11 +68,15 @@
 .navbar-brand{
   left: 90%;
 }
+.fixed {
+    position: fixed;
+    top: 0;
+}
     </style>
  
         <nav class="navbar sticky-top navbar-expand-lg scroll" aria-label="Eleventh navbar example">
             <div class="container">
-              <a class="navbar-brand fixd" style="color: aliceblue; font-size: 30px;" href="/"> <img src="{% static 'images/Removal-575.png' %}" style=" height:110px; margin-top: 7px;"></a>
+              <a class="navbar-brand fixd" style="color: aliceblue; font-size: 30px;" href="/"> <img src="{% static 'images/Removal-694.png' %}" style=" height:110px; margin-top: 7px;"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -89,6 +94,7 @@
                   
                   <li class="nav-item dropdown " >
                     <a class="nav-link " href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                     
                       {% if request.user.is_authenticated %}
                         <img src="{{ request.user.profile.avatar.url }}" alt="avatar" width="32" height="32" class="avatar rounded-circle">
                         {{ request.user.first_name }} <span class="material-symbols-outlined" style="align-items: center;font-size: large;">menu</span>
@@ -98,7 +104,7 @@
                     <ul class="dropdown-menu">
                       
                       {% if request.user.is_staff %}
-                          <li><a class="dropdown-item" href="{% url 'companies:dashbord_view' request.user.id %}">لوحه التحكم<span class="material-symbols-outlined">dashboard</span></a></li>
+                          <li><a class="dropdown-item" href="{% url 'companies:dashbord_view' request.user.id %}">لوحة التحكم<span class="material-symbols-outlined">dashboard</span></a></li>
                           <li><a class="dropdown-item" href="{% url 'companies:add_company_view' %}"> اضافة شركة<span class="material-symbols-outlined">edit_note</span></a></li> 
                           <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">تسجيل الخروج <span class="material-symbols-outlined">logout</span></a></li>
                       {% endif %}
@@ -163,7 +169,15 @@
           
           // Attach the scroll event listener
           window.addEventListener('scroll', handleScroll);
-          
+
+          window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
+    if (window.scrollY > navbar.offsetHeight) {
+        navbar.classList.add("fixed");
+    } else {
+        navbar.classList.remove("fixed");
+    }
+});
             </script>
       </body>
         </html>
