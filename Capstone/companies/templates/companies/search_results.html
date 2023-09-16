@@ -4,34 +4,92 @@
 {% block title %} All companies {% endblock %}
 
 {% block content %}
+<style>
+        .con {
+        position: relative;
+        margin: 0px;
+        margin-top: 35px;
+    }
+    .card-img{  
+       display: flex;
+       width: 100% !important;
+       height: auto !important;
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transition: .5s ease; 
+        color: rgb(6, 26, 44);
+    }
 
+    .con .overlay:hover {
+         background-color: #d3cec4a2;
+         opacity: 1;
+         color: rgb(6, 26, 44);
+    }
+  
+    .text {
+        color: white;
+        font-size: 30px;
+        font-weight: 700;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-family: 'Markazi Text', serif !important;
+        color: rgb(7, 20, 77);
+
+        }
+    .head{
+        margin-right: 40%;
+        margin-bottom: 8%;
+        font-size: 39px;
+        font-weight: 600;
+        color: rgb(7, 20, 77);
+    }
+   
+</style>
 <div class="d-flex justify-content-between mt-4">
     <h1> <span class="text-success"> {% if "search" in request.GET %}  نتائج بحث "{{ request.GET.search }}"  {%elif "تقنية" in request.GET %} المجال التقني: {% elif "صحي" in request.GET %} المجال الصحي:
             {% elif "البنوك" in request.GET %} مجال البنوك: {% elif "الاتصالات" in request.GET %}
             مجال الاتصالات:  {% endif %} </span></h1>
 </div>
 
-<div class="row">
-    {% for company in companies %}
-    <div class="col-4 mt-4">
-        <div class="d-flex flex-column gap-3 border border-1 shadow rounded-4 p-4 mt-1  h-100 justify-content-between">
-            <h3>{{ company.name }}</h3>
-            <div class="d-flex justify-content-between align-items-center">
-                <h6>{{ company.field }}</h6>
-                <div class="d-flex gap-1 align-items-center">
-                    <h6 class="p-0 m-0"> {{company.info}}</h6>
-                </div>
-
-            </div>
-
-            <a href="{% url 'companies:company_detail_view' company.id %}"
-                class="d-flex justify-content-between text-decoration-none">
-                <h5>more</h5>
-            </a>
-        </div>
-    </div>
-
-    {% endfor %}
+{% if "msg" in  request.GET %}
+<div class="alert alert-dismissible fade show" role="alert">
+    <strong>{{request.GET.msg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+{% endif %}
+<div >
+   
+    <div class="con">
+        <div class="row align-items-end row-cols-2 row-cols-md-3 g-4">
+            {% for company in companies %}
+            <div class="col-sm-3 mb-3 mb-sm-0 ml-3">
+                <div class="card mb-3 border border-2 ">
+                    <img src="{{ company.image.url }}" class="card-img  rounded-start" style="width:100%; height: 50%;" >
+                    <a href="{% url 'companies:company_detail_view' company.id %}" class="btn ">
+                    <div class="overlay middle" >
+                        <div class="text">  
+                            <h3 style="font-size: 43px;"> {{ company.name }} </h3>
+                            <p style="font-size: 33px;"> {{ company.field }} </p>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
 
 {% endblock %}

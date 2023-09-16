@@ -22,7 +22,7 @@
 }
 
 body{
-  direction: ltr;
+  direction: rtl;
   font-family: 'Markazi Text', serif;
 
 }
@@ -34,6 +34,7 @@ body{
 direction: rtl;
 }
 .container-signup {
+  direction: ltr;
   margin-top: 10%;
   width: 100%;
   height: 400px;
@@ -105,10 +106,10 @@ direction: rtl;
   width: 90%;
   border: 0;
   border-bottom: 1px solid #aaa;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 300;
   color: #797a9e;
-  letter-spacing: 0.11em;
+ 
 }
 .container-signup form input::placeholder {
   color: #333;
@@ -153,7 +154,7 @@ direction: rtl;
       <div class="form--heading">مرحبا! تسجيل مستخدم جديد</div>
       <form action="{% url 'accounts:register_user_view' %}" method="post" >
         {% csrf_token %}
-        <input type="text" name="first_name" class="form-control mt-2" placeholder="الاسم الاول" />
+        <input type="text" style="color: black;" name="first_name" class="form-control mt-2" placeholder="الاسم الاول" />
         <input type="text" name="last_name" class="form-control mt-2" placeholder="الاسم الاخير" />
         <input type="text" name="username" class="form-control mt-2" placeholder="اسم المستخدم" />
         <input type="email" name="email" class="form-control mt-2" placeholder="البريد الالكتروني" />
